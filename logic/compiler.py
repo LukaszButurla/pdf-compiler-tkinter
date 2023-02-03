@@ -1,4 +1,5 @@
 from tkinter import filedialog as fd
+import PyPDF2
 
 class Compiler:
     def __init__(self, labelFileList):
@@ -11,6 +12,7 @@ class Compiler:
         for file in selectedFiles:
             self.allFiles.append(file)
         self.set_label_name()
+        self.mergePdf()
         print(self.allFiles)
         print(selectedFiles)
 
@@ -20,5 +22,16 @@ class Compiler:
             txt += "{}\n".format(file)
 
         self.labelFileList.configure(text=txt)
+
+    def mergePdf(self):
+        pdfMerger = PyPDF2.PdfMerger()
+        for pdf in self.allFiles:
+            pdfMerger.append(pdf)
+
+        saveDir = r"C:\Users\praktykant\Desktop\program\pdf\test.pdf"
+
+        with open(saveDir, "wb") as fSave:
+            pdfMerger.write(fSave)
+
 
     
