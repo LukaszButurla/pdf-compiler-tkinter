@@ -10,7 +10,9 @@ class Compiler:
     def open_select_file_window(self):
         selectedFiles = fd.askopenfilenames()
         for file in selectedFiles:
-            self.allFiles.append(file)
+            if file not in self.allFiles:
+                self.allFiles.append(file)
+                
         self.set_label_name()
         print(self.allFiles)
         print(selectedFiles)
