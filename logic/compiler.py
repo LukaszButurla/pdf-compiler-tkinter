@@ -7,8 +7,7 @@ class Compiler:
         self.allFiles = []
         self.window = window
         self.labelFileList = labelFileList
-        self.windowAskSameFile = WindowAskSameFile()
-        print(self.labelFileList)
+        self.windowAskSameFile = WindowAskSameFile(self)
 
     def open_select_file_window(self):
         selectedFiles = fd.askopenfilenames()
@@ -16,7 +15,7 @@ class Compiler:
             if file not in self.allFiles:
                 self.allFiles.append(file)
             else:
-                self.windowAskSameFile.open_window(self.window)
+                self.windowAskSameFile.open_window(self.window, file)
 
         self.set_label_name()
         print(self.allFiles)
@@ -38,6 +37,10 @@ class Compiler:
 
         with open(saveDir, "wb") as fSave:
             pdfMerger.write(fSave)
+
+    def add_file_from_window(self, file):
+        self.allFiles.append(file)
+        self.set_label_name()
 
 
     
