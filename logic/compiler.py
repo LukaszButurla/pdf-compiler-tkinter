@@ -12,7 +12,6 @@ class Compiler:
         for file in selectedFiles:
             self.allFiles.append(file)
         self.set_label_name()
-        self.mergePdf()
         print(self.allFiles)
         print(selectedFiles)
 
