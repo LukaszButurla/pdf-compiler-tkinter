@@ -1,10 +1,13 @@
 from tkinter import filedialog as fd
+from logic.windowAskSameFile import WindowAskSameFile
 import PyPDF2
 
 class Compiler:
-    def __init__(self, labelFileList):
+    def __init__(self, labelFileList, window):
         self.allFiles = []
+        self.window = window
         self.labelFileList = labelFileList
+        self.windowAskSameFile = WindowAskSameFile()
         print(self.labelFileList)
 
     def open_select_file_window(self):
@@ -12,7 +15,9 @@ class Compiler:
         for file in selectedFiles:
             if file not in self.allFiles:
                 self.allFiles.append(file)
-                
+            else:
+                self.windowAskSameFile.open_window(self.window)
+
         self.set_label_name()
         print(self.allFiles)
         print(selectedFiles)

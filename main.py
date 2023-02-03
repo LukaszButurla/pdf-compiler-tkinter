@@ -18,7 +18,7 @@ class MainWindow:
         self.labelListOfFiles = customtkinter.CTkLabel(app, text="Lista plików:", justify="left")
         self.labelListOfFiles.place(relx=0.02, rely=0.15)
 
-        self.compiler = Compiler(self.labelListOfFiles)
+        self.compiler = Compiler(self.labelListOfFiles, app)
 
         buttonAdd = customtkinter.CTkButton(master=app, text="Dodaj", command=self.compiler.open_select_file_window)
         buttonAdd.place(relx=0.02, rely=0.05)
