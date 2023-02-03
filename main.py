@@ -15,7 +15,7 @@ class MainWindow:
         customtkinter.set_default_color_theme("blue")
         app.geometry("400x400")
 
-        self.labelListOfFiles = customtkinter.CTkLabel(app, text="Lista plików:")
+        self.labelListOfFiles = customtkinter.CTkLabel(app, text="Lista plików:", justify="left")
         self.labelListOfFiles.place(relx=0.02, rely=0.15)
 
         self.compiler = Compiler(self.labelListOfFiles)
