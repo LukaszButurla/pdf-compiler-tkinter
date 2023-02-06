@@ -27,7 +27,7 @@ class Edit:
         self.add_column(self.compiler.allFiles)
 
     def add_widgets(self):
-        buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj")
+        buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj", command=self.close_window)
         buttonCancel.place(relx=0.6, rely=0.85)
 
         buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź")
@@ -53,6 +53,9 @@ class Edit:
         tableScroll.config(command=self.table.yview)
         self.table.heading("#1",text="Nazwa")
         self.table.place(width=670, height=330)
+
+    def close_window(self):
+        self.editWindow.destroy()
         
 
     def add_column(self, files):
