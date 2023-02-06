@@ -12,6 +12,7 @@ import customtkinter
 from tkinter import Frame
 from tkinter import ttk
 from tkinter import END
+from tkinter import Scrollbar
 
 class Edit:
     def __init__(self, app, compiler):
@@ -38,18 +39,26 @@ class Edit:
         self.create_table(1)
     
     def create_table(self, files):
+        tableFrame = Frame(self.editWindow)
+        tableFrame.place(relx=0.04, rely=0.13, width=690, height=330)
+
+        tableScroll = Scrollbar(tableFrame)
+        tableScroll.pack(side="right", fill="y")
+
         s = ttk.Style()
         s.theme_use("clam")
         s.configure("Treeview", rowheight=35, font=(None, 14))
         s.configure("Treeview.Heading", font=(None, 16))
-        self.table = ttk.Treeview(self.editWindow, columns="Nazwa", show="headings")
+        self.table = ttk.Treeview(tableFrame, columns="Nazwa", show="headings", yscrollcommand=tableScroll.set)
+        tableScroll.config(command=self.table.yview)
         self.table.heading("#1",text="Nazwa")
-        self.table.place(relx=0.04, rely=0.13, width=690, height=330)
+        self.table.place(width=670, height=330)
         
 
     def add_column(self, files):
         files.reverse()
         for f in files:
+            f = f.replace(" ", "_")
             self.table.insert("", END, values=f)
 
     
