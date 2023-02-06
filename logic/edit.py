@@ -28,15 +28,23 @@ class Edit:
 
     def add_widgets(self):
         buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj", command=self.close_window)
-        buttonCancel.place(relx=0.6, rely=0.85)
+        buttonCancel.place(relx=0.68, rely=0.85)
 
         buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź")
-        buttonAgree.place(relx=0.2, rely=0.85)
+        buttonAgree.place(relx=0.38, rely=0.85)
+
+        buttonDelete = customtkinter.CTkButton(self.editWindow, text="Usuń", command=self.delete_row)
+        buttonDelete.place(relx=0.08, rely=0.85)
 
         infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy")
         infoLabel.place(relx=0.04, rely=0.03)
 
         self.create_table(1)
+
+    def delete_row(self):
+        row = self.table.selection()
+        for r in row:
+            self.table.delete(r)
     
     def create_table(self, files):
         tableFrame = Frame(self.editWindow)
