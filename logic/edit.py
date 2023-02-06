@@ -10,6 +10,8 @@
 #         self.editWindow.geometry("600x400")
 import customtkinter
 from tkinter import Frame
+from tkinter import ttk
+from tkinter import END
 
 class Edit:
     def __init__(self, app, compiler):
@@ -31,3 +33,16 @@ class Edit:
 
         infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy")
         infoLabel.place(relx=0.04, rely=0.03)
+
+        self.create_table(1)
+    
+    def create_table(self, files):
+        s = ttk.Style()
+        s.theme_use("clam")
+        s.configure("Treeview", rowheight=35, font=(None, 14))
+        s.configure("Treeview.Heading", font=(None, 16))
+        table = ttk.Treeview(self.editWindow, columns="Nazwa", show="headings")
+        table.heading("#1",text="Nazwa")
+        table.place(relx=0.04, rely=0.13, width=690, height=330)
+
+    
