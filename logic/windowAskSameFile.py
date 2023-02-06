@@ -17,7 +17,7 @@ class WindowAskSameFile:
         
 
     def add_widgets_to_window(self):
-        self.labelInfo = customtkinter.CTkLabel(master=self.windowAsk, justify="center", text="Plik o nazwie \"{}\" jest juz dodany. Czy chcesz dodać ponownie?".format(self.files[0]))
+        self.labelInfo = customtkinter.CTkLabel(master=self.windowAsk, wraplength=400, justify="center", text="Plik o nazwie \"{}\" jest juz dodany. Czy chcesz dodać ponownie?".format(self.files[0]))
         self.labelInfo.place(relx = 0.01, rely=0.3)
 
         buttonAgree = customtkinter.CTkButton(master=self.windowAsk, text="Tak",command=partial(self.select_if_add, True))
