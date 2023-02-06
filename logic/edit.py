@@ -23,6 +23,7 @@ class Edit:
         # self.editWindow.geometry("600x400")
         self.editWindow.pack(fill="both", side="bottom", expand=True)
         self.add_widgets()
+        self.add_column(self.compiler.allFiles)
 
     def add_widgets(self):
         buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj")
@@ -41,8 +42,14 @@ class Edit:
         s.theme_use("clam")
         s.configure("Treeview", rowheight=35, font=(None, 14))
         s.configure("Treeview.Heading", font=(None, 16))
-        table = ttk.Treeview(self.editWindow, columns="Nazwa", show="headings")
-        table.heading("#1",text="Nazwa")
-        table.place(relx=0.04, rely=0.13, width=690, height=330)
+        self.table = ttk.Treeview(self.editWindow, columns="Nazwa", show="headings")
+        self.table.heading("#1",text="Nazwa")
+        self.table.place(relx=0.04, rely=0.13, width=690, height=330)
+        
+
+    def add_column(self, files):
+        files.reverse()
+        for f in files:
+            self.table.insert("", END, values=f)
 
     
