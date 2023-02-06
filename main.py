@@ -6,8 +6,7 @@ from logic.edit import Edit
 
 class MainWindow:
     
-    def __init__(self):
-        # self.compiler = Compiler()      
+    def __init__(self):     
         self.open_app()
 
     def open_app(self):
