@@ -22,8 +22,6 @@ class Compiler:
             self.windowAskSameFile.open_window(self.window, sameFiles)
 
         self.set_label_name()
-        print(self.allFiles)
-        print(selectedFiles)
 
     def set_label_name(self):
         txt = "Lista plików:\n"
