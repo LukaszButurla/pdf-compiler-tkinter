@@ -23,10 +23,10 @@ class MainWindow:
         buttonAdd = customtkinter.CTkButton(master=app, text="Dodaj", command=self.compiler.open_select_file_window)
         buttonAdd.place(relx=0.02, rely=0.05)
 
-        buttonEdit = customtkinter.CTkButton(master=app, text="Edytuj")
+        buttonEdit = customtkinter.CTkButton(master=app, text="Usuń")
         buttonEdit.place(relx=0.35, rely=0.05)
 
-        buttonCompile = customtkinter.CTkButton(master=app, text="Kompiluj", command=self.compiler.mergePdf)
+        buttonCompile = customtkinter.CTkButton(master=app, text="Łącz", command=self.compiler.mergePdf)
         buttonCompile.place(relx=0.67, rely=0.05)
         app.mainloop()
 
