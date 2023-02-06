@@ -1,19 +1,27 @@
 from tkinter import filedialog as fd
+from logic.windowAskSameFile import WindowAskSameFile
 import PyPDF2
 
 class Compiler:
-    def __init__(self, labelFileList):
+    def __init__(self, labelFileList, window):
         self.allFiles = []
+        self.window = window
         self.labelFileList = labelFileList
-        print(self.labelFileList)
+        self.windowAskSameFile = WindowAskSameFile(self)
 
     def open_select_file_window(self):
         selectedFiles = fd.askopenfilenames()
+        sameFiles = []
         for file in selectedFiles:
-            self.allFiles.append(file)
+            if file not in self.allFiles:
+                self.allFiles.append(file)
+            else:
+                sameFiles.append(file) 
+
+        if len(sameFiles) > 0:                
+            self.windowAskSameFile.open_window(self.window, sameFiles)
+
         self.set_label_name()
-        print(self.allFiles)
-        print(selectedFiles)
 
     def set_label_name(self):
         txt = "Lista plików:\n"
@@ -31,6 +39,11 @@ class Compiler:
 
         with open(saveDir, "wb") as fSave:
             pdfMerger.write(fSave)
+
+    def add_file_from_window(self, file):
+        for f in file:
+            self.allFiles.append(f)
+        self.set_label_name()
 
 
     
