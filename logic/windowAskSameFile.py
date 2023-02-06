@@ -24,6 +24,7 @@ class WindowAskSameFile:
         buttonDecline.place(relx=0.55, rely=0.7)
 
     def close_window(self, state, file):
+        print(self.windowAsk)
         if state == False:
             self.windowAsk.destroy()
             
