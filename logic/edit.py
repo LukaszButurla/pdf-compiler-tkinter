@@ -50,6 +50,11 @@ class Edit:
         files = []
         for row in self.table.get_children():
             files.append(self.table.item(row)["values"][0])
+
+        self.compiler.allFiles = files
+        self.compiler.set_label_name()
+        
+        self.close_window()
     
     def create_table(self, files):
         tableFrame = Frame(self.editWindow)
