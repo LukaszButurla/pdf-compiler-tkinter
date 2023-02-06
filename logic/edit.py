@@ -30,7 +30,7 @@ class Edit:
         buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj", command=self.close_window)
         buttonCancel.place(relx=0.68, rely=0.85)
 
-        buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź")
+        buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź", command=self.save_changes)
         buttonAgree.place(relx=0.38, rely=0.85)
 
         buttonDelete = customtkinter.CTkButton(self.editWindow, text="Usuń", command=self.delete_row)
@@ -45,6 +45,11 @@ class Edit:
         row = self.table.selection()
         for r in row:
             self.table.delete(r)
+
+    def save_changes(self):
+        files = []
+        for row in self.table.get_children():
+            files.append(self.table.item(row)["values"][0])
     
     def create_table(self, files):
         tableFrame = Frame(self.editWindow)
