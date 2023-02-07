@@ -23,15 +23,8 @@ class Compiler:
         if len(sameFiles) > 0:                
             self.windowAskSameFile.open_window(self.window, sameFiles)
 
-        # self.set_label_name()
         self.add_files_to_tree()
 
-    # def set_label_name(self):
-    #     txt = "Lista plików:\n"
-    #     for file in self.allFiles:
-    #         txt += "{}\n".format(file)
-
-    #     self.labelFileList.configure(text=txt)
 
     def add_files_to_tree(self):
         self.clear_tree()
@@ -58,7 +51,6 @@ class Compiler:
     def add_file_from_window(self, file):
         for f in file:
             self.allFiles.append(f)
-        # self.set_label_name()
         self.add_files_to_tree()
 
 

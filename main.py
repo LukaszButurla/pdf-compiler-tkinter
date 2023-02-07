@@ -36,14 +36,6 @@ class MainWindow:
         self.compiler = Compiler(self.labelListOfFiles, app, self.treeListOfFiles)
         self.edit = Edit(app, self.compiler)
 
-        self.treeListOfFiles.insert('', END, values = "dsadasdasdasdasdasda")
-        self.treeListOfFiles.insert('', END, values = "dsadasdasdsadasdasdasda")
-        self.treeListOfFiles.insert('', END, values = "dsadasdasddsaasdasdasda")
-        self.treeListOfFiles.insert('', END, values = "dsadasdgasdasdasdasda")
-        self.treeListOfFiles.insert('', END, values = "dsadasasddasdasdasdasda")
-        self.treeListOfFiles.insert('', END, values = "dsadadassdasdasdasdasda")
-
-
         buttonAdd = customtkinter.CTkButton(master=app, text="Dodaj", command=self.compiler.open_select_file_window)
         buttonAdd.place(relx=0.02, rely=0.05)
 
