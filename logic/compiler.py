@@ -12,7 +12,7 @@ class Compiler:
         self.filesLabel = filesLabel
 
     def open_select_file_window(self):
-        selectedFiles = fd.askopenfilenames()
+        selectedFiles = fd.askopenfilenames(filetypes=[("PDF", ".pdf")])
         sameFiles = []
         for file in selectedFiles:
             if file not in self.allFiles:
@@ -41,13 +41,21 @@ class Compiler:
 
     def mergePdf(self):
         pdfMerger = PyPDF2.PdfMerger()
-        for pdf in self.allFiles:
-            pdfMerger.append(pdf)
 
-        saveDir = r"C:\Users\praktykant\Desktop\program\pdf\test.pdf"
+        try:
+            for pdf in self.allFiles:
+                pdfMerger.append(pdf)
 
-        with open(saveDir, "wb") as fSave:
-            pdfMerger.write(fSave)
+            saveDir = fd.asksaveasfilename(filetypes = [("PDF", ".pdf")], title="Zapisz")
+
+            if not saveDir.endswith(".pdf"):
+                saveDir = "{}.pdf".format(saveDir)
+
+            with open(saveDir, "wb") as fSave:
+                pdfMerger.write(fSave)
+
+        except Exception as e:
+            print("Error save: ", e)
 
     def add_file_from_window(self, file):
         for f in file:
