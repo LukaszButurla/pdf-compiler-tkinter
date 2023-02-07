@@ -19,5 +19,8 @@ class InfoPage:
                                              justify = LEFT, font=("Arial", 20))
         labelCompany.place(relx = 0.05, rely=0.05)
 
-        btnExit = customtkinter.CTkButton(self.page, text="Wyjdź")
+        btnExit = customtkinter.CTkButton(self.page, text="Wyjdź", command=self.close_page)
         btnExit.place(relx=0.4, rely=0.85)
+
+    def close_page(self):
+        self.page.destroy()
