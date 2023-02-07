@@ -59,6 +59,7 @@ class Compiler:
         for f in file:
             self.allFiles.append(f)
         # self.set_label_name()
+        self.add_files_to_tree()
 
 
     
