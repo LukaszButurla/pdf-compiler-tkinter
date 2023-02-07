@@ -46,15 +46,25 @@ class Compiler:
             for pdf in self.allFiles:
                 pdfMerger.append(pdf)
 
+<<<<<<< HEAD
+            saveDir = fd.asksaveasfilename(filetypes = [("PDF", ".pdf")], title="Zapisz")
+=======
             saveDir = fd.asksaveasfilename(filetypes=[("PDF", ".pdf")], title="Zapisz")
+>>>>>>> main
 
             if not saveDir.endswith(".pdf"):
                 saveDir = "{}.pdf".format(saveDir)
 
             with open(saveDir, "wb") as fSave:
                 pdfMerger.write(fSave)
+<<<<<<< HEAD
+
+        except Exception as e:
+            print("Error save: ", e)
+=======
         except:
             print("Error save")
+>>>>>>> main
 
     def add_file_from_window(self, file):
         for f in file:
