@@ -3,6 +3,7 @@ from tkinter import Frame
 import customtkinter
 from logic.compiler import Compiler
 from logic.edit import Edit
+from Ui.info import InfoPage
 from tkinter import Scrollbar
 from tkinter import ttk
 from tkinter import END
@@ -36,17 +37,21 @@ class MainWindow:
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.compiler = Compiler(app, self.treeListOfFiles, labelListOfFiles)
         self.edit = Edit(app, self.compiler)
+        self.infoPage = InfoPage(app)
 
         self.style_tree()
 
-        buttonAdd = customtkinter.CTkButton(master=app, text="Dodaj", command=self.compiler.open_select_file_window)
+        buttonAdd = customtkinter.CTkButton(master=app, text="Dodaj", command=self.compiler.open_select_file_window, width=120)
         buttonAdd.place(relx=0.02, rely=0.05)
 
-        buttonEdit = customtkinter.CTkButton(master=app, text="Usuń", command=self.edit_window)
-        buttonEdit.place(relx=0.35, rely=0.05)
+        buttonEdit = customtkinter.CTkButton(master=app, text="Usuń", command=self.edit_window, width=120)
+        buttonEdit.place(relx=0.27, rely=0.05)
 
-        buttonCompile = customtkinter.CTkButton(master=app, text="Łącz", command=self.compiler.mergePdf)
-        buttonCompile.place(relx=0.67, rely=0.05)
+        buttonCompile = customtkinter.CTkButton(master=app, text="Łącz", command=self.compiler.mergePdf, width=120)
+        buttonCompile.place(relx=0.52, rely=0.05)
+
+        buttonInfo = customtkinter.CTkButton(master=app, text="O programie", command=self.infoPage.open_page, width=120)
+        buttonInfo.place(relx = 0.77, rely = 0.05)
         app.mainloop()
 
     def style_tree(self):
