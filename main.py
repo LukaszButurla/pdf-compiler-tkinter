@@ -33,7 +33,7 @@ class MainWindow:
         self.treeListOfFiles.place(width=720, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
-        self.compiler = Compiler(self.labelListOfFiles, app)
+        self.compiler = Compiler(self.labelListOfFiles, app, self.treeListOfFiles)
         self.edit = Edit(app, self.compiler)
 
         self.treeListOfFiles.insert('', END, values = "dsadasdasdasdasdasda")
@@ -56,8 +56,9 @@ class MainWindow:
 
     def edit_window(self):
         self.edit.open_edit_window()
-        
 
+    
+    
 
 if __name__ == "__main__":
     MainWindow()
