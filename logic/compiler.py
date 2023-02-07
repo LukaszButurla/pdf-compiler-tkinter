@@ -4,10 +4,9 @@ import PyPDF2
 from tkinter import END
 
 class Compiler:
-    def __init__(self, labelFileList, window, filesTree):
+    def __init__(self, window, filesTree):
         self.allFiles = []
         self.window = window
-        self.labelFileList = labelFileList
         self.windowAskSameFile = WindowAskSameFile(self)
         self.tree = filesTree
 
