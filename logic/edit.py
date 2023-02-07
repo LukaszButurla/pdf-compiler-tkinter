@@ -52,10 +52,6 @@ class Edit:
         tableScroll = Scrollbar(tableFrame)
         tableScroll.pack(side="right", fill="y")
 
-        s = ttk.Style()
-        s.theme_use("clam")
-        s.configure("Treeview", rowheight=35, font=(None, 14))
-        s.configure("Treeview.Heading", font=(None, 16))
         self.table = ttk.Treeview(tableFrame, columns="Nazwa", show="headings", yscrollcommand=tableScroll.set)
         tableScroll.config(command=self.table.yview)
         self.table.heading("#1",text="Nazwa")
