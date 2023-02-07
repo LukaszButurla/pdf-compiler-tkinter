@@ -4,11 +4,12 @@ import PyPDF2
 from tkinter import END
 
 class Compiler:
-    def __init__(self, window, filesTree):
+    def __init__(self, window, filesTree, filesLabel):
         self.allFiles = []
         self.window = window
         self.windowAskSameFile = WindowAskSameFile(self)
         self.tree = filesTree
+        self.filesLabel = filesLabel
 
     def open_select_file_window(self):
         selectedFiles = fd.askopenfilenames()
@@ -29,6 +30,7 @@ class Compiler:
         self.clear_tree()
         for file in self.allFiles:
             self.add_row_to_tree(file)
+        self.filesLabel.configure(text = "Lista plików: {}".format(len(self.allFiles)))
 
     def add_row_to_tree(self, value):
         self.tree.insert("", END, values=value)

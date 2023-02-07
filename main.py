@@ -34,7 +34,7 @@ class MainWindow:
         self.treeListOfFiles.place(width=700, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
-        self.compiler = Compiler(app, self.treeListOfFiles)
+        self.compiler = Compiler(app, self.treeListOfFiles, labelListOfFiles)
         self.edit = Edit(app, self.compiler)
 
         self.style_tree()
