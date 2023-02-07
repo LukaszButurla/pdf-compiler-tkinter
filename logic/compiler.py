@@ -1,13 +1,15 @@
 from tkinter import filedialog as fd
 from logic.windowAskSameFile import WindowAskSameFile
 import PyPDF2
+from tkinter import END
 
 class Compiler:
-    def __init__(self, labelFileList, window):
+    def __init__(self, labelFileList, window, filesTree):
         self.allFiles = []
         self.window = window
         self.labelFileList = labelFileList
         self.windowAskSameFile = WindowAskSameFile(self)
+        self.tree = filesTree
 
     def open_select_file_window(self):
         selectedFiles = fd.askopenfilenames()
@@ -21,14 +23,27 @@ class Compiler:
         if len(sameFiles) > 0:                
             self.windowAskSameFile.open_window(self.window, sameFiles)
 
-        self.set_label_name()
+        # self.set_label_name()
+        self.add_files_to_tree()
 
-    def set_label_name(self):
-        txt = "Lista plików:\n"
+    # def set_label_name(self):
+    #     txt = "Lista plików:\n"
+    #     for file in self.allFiles:
+    #         txt += "{}\n".format(file)
+
+    #     self.labelFileList.configure(text=txt)
+
+    def add_files_to_tree(self):
+        self.clear_tree()
         for file in self.allFiles:
-            txt += "{}\n".format(file)
+            self.add_row_to_tree(file)
 
-        self.labelFileList.configure(text=txt)
+    def add_row_to_tree(self, value):
+        self.tree.insert("", END, values=value)
+
+    def clear_tree(self):
+        for i in self.tree.get_children():
+            self.tree.delete(i)
 
     def mergePdf(self):
         pdfMerger = PyPDF2.PdfMerger()
@@ -43,7 +58,7 @@ class Compiler:
     def add_file_from_window(self, file):
         for f in file:
             self.allFiles.append(f)
-        self.set_label_name()
+        # self.set_label_name()
 
 
     
