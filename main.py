@@ -30,7 +30,7 @@ class MainWindow:
 
         self.treeListOfFiles = ttk.Treeview(filesLabelFrame, columns="File", show="headings", yscrollcommand=filesListScroll.set)
         self.treeListOfFiles.heading("#1", text="File")
-        self.treeListOfFiles.place(width=720, height=350)
+        self.treeListOfFiles.place(width=700, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.compiler = Compiler(self.labelListOfFiles, app, self.treeListOfFiles)
