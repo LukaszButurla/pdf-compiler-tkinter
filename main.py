@@ -19,6 +19,7 @@ class MainWindow:
         secondColor = "#0f4b99"
         textColor = "white"
         self.app = customtkinter.CTk()
+        self.app.title("Łącznik pdf")
         # customtkinter.set_appearance_mode("dark")
         # customtkinter.set_default_color_theme("blue")
         self.app.geometry("600x400")
