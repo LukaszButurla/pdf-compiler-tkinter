@@ -48,7 +48,7 @@ class Compiler:
 
             saveDir = fd.asksaveasfilename(filetypes=[("PDF", ".pdf")], title="Zapisz")
 
-            if not saveDir.endswith(".pdf"):
+            if saveDir != "" and not saveDir.endswith(".pdf"):
                 saveDir = "{}.pdf".format(saveDir)
 
             with open(saveDir, "wb") as fSave:
