@@ -2,6 +2,7 @@ import tkinter
 from tkinter import Frame
 import customtkinter
 from logic.compiler import Compiler
+from logic.compress import Compress
 from logic.edit import Edit
 from Ui.info import InfoPage
 from tkinter import Scrollbar
@@ -45,6 +46,7 @@ class MainWindow:
         self.compiler = Compiler(self.app, self.treeListOfFiles, labelListOfFiles)
         self.edit = Edit(self.app, self.compiler, windowColor, secondColor, textColor)
         self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
+        self.compress = Compress()
 
         self.style_tree()
 
