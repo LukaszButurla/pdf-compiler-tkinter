@@ -48,11 +48,12 @@ class Compiler:
 
             saveDir = fd.asksaveasfilename(filetypes=[("PDF", ".pdf")], title="Zapisz")
 
-            if not saveDir.endswith(".pdf"):
-                saveDir = "{}.pdf".format(saveDir)
+            if saveDir != "":
+                if not saveDir.endswith(".pdf"):
+                    saveDir = "{}.pdf".format(saveDir)
 
-            with open(saveDir, "wb") as fSave:
-                pdfMerger.write(fSave)
+                with open(saveDir, "wb") as fSave:
+                    pdfMerger.write(fSave)
         except:
             print("Error save")
 
