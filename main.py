@@ -24,6 +24,7 @@ class MainWindow:
         # customtkinter.set_default_color_theme("blue")
         self.app.geometry("600x400")
         self.app.config(bg=windowColor)
+        self.app.resizable(False, False)
 
         filesLabelFrame = Frame(self.app)
         filesLabelFrame.place(relx=0.02, rely=0.25, width=720, height=350)
