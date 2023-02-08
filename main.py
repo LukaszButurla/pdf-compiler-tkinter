@@ -27,7 +27,7 @@ class MainWindow:
         self.app.resizable(False, False)
 
         filesLabelFrame = Frame(self.app)
-        filesLabelFrame.place(relx=0.02, rely=0.25, width=720, height=350)
+        filesLabelFrame.place(relx=0.02, rely=0.25, width=960, height=350)
 
         filesListScroll = Scrollbar(filesLabelFrame)
         filesListScroll.pack(side="right", fill="y")
@@ -38,8 +38,8 @@ class MainWindow:
 
         self.treeListOfFiles = ttk.Treeview(filesLabelFrame, columns="File", show="headings", yscrollcommand=filesListScroll.set, selectmode="none")
         self.treeListOfFiles.heading("#1", text="Ścieżka do pliku")
-        self.treeListOfFiles.column("#1", minwidth=700)
-        self.treeListOfFiles.place(width=700, height=350)
+        self.treeListOfFiles.column("#1", minwidth=940)
+        self.treeListOfFiles.place(width=940, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.compiler = Compiler(self.app, self.treeListOfFiles, labelListOfFiles)
