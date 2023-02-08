@@ -5,9 +5,9 @@ from tkinter import END
 from tkinter import Scrollbar
 
 class Edit:
-    def __init__(self, app, compiler, color, secondColor, textColor):
-        self.compiler = compiler
+    def __init__(self, app, files, color, secondColor, textColor):
         self.window = app
+        self.files = files
         self.color = color
         self.secondColor = secondColor
         self.textColor = textColor
@@ -16,7 +16,7 @@ class Edit:
         self.editWindow = Frame(self.window, background=self.color)
         self.editWindow.pack(fill="both", side="bottom", expand=True)
         self.add_widgets()
-        self.add_column(self.compiler.allFiles)
+        self.add_column(self.files.allFiles)
 
     def add_widgets(self):
         buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj", command=self.close_window, bg_color=self.color)
@@ -31,7 +31,7 @@ class Edit:
         infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy", text_color=self.textColor)
         infoLabel.place(relx=0.02, rely=0.03)
 
-        self.create_table(1)
+        self.create_table()
 
     def delete_row(self):
         row = self.table.selection()
@@ -39,16 +39,16 @@ class Edit:
             self.table.delete(r)
 
     def save_changes(self):
-        files = []
+        selectedFiles = []
         for row in self.table.get_children():
-            files.append(self.table.item(row)["values"][0])
+            selectedFiles.append(self.table.item(row)["values"][0])
 
-        self.compiler.allFiles = files
-        self.compiler.add_files_to_tree()
+        self.files.allFiles = selectedFiles
+        self.files.add_files_to_tree()
 
         self.close_window()
     
-    def create_table(self, files):
+    def create_table(self):
         tableFrame = Frame(self.editWindow)
         tableFrame.place(relx=0.02, rely=0.13, width=960, height=330)
 

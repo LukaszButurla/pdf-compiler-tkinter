@@ -4,10 +4,12 @@ import customtkinter
 from logic.compiler import Compiler
 from logic.compress import Compress
 from logic.edit import Edit
+from logic.files import Files
 from Ui.info import InfoPage
 from tkinter import Scrollbar
 from tkinter import ttk
 from tkinter import END
+from functools import partial
 
 class MainWindow:
     
@@ -43,20 +45,21 @@ class MainWindow:
         self.treeListOfFiles.place(width=940, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
-        self.compiler = Compiler(self.app, self.treeListOfFiles, labelListOfFiles)
-        self.edit = Edit(self.app, self.compiler, windowColor, secondColor, textColor)
         self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
         self.compress = Compress()
+        self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles)
+        self.compiler = Compiler(self.files)
+        self.edit = Edit(self.app, self.files, windowColor, secondColor, textColor)
 
         self.style_tree()
 
-        buttonAdd = customtkinter.CTkButton(master=self.app, text="Dodaj", command=self.compiler.open_select_file_window, width=120, bg_color=windowColor)
+        buttonAdd = customtkinter.CTkButton(master=self.app, text="Dodaj", command=self.files.open_select_file_window, width=120, bg_color=windowColor)
         buttonAdd.place(relx=0.02, rely=0.05)
 
         buttonEdit = customtkinter.CTkButton(master=self.app, text="Usuń", command=self.edit_window, width=120, bg_color=windowColor)
         buttonEdit.place(relx=0.22, rely=0.05)
 
-        buttonCompile = customtkinter.CTkButton(master=self.app, text="Łącz", command=self.compiler.mergePdf, width=120, bg_color=windowColor)
+        buttonCompile = customtkinter.CTkButton(master=self.app, text="Łącz", command = self.compiler.mergePdf, width=120, bg_color=windowColor)
         buttonCompile.place(relx=0.42, rely=0.05)
 
         buttonInfo = customtkinter.CTkButton(master=self.app, text="O programie", command=self.infoPage.open_page, width=120, bg_color=windowColor)
