@@ -22,12 +22,12 @@ class MainWindow:
         self.app.title("Łącznik pdf")
         # customtkinter.set_appearance_mode("dark")
         # customtkinter.set_default_color_theme("blue")
-        self.app.geometry("600x400")
+        self.app.geometry("800x400")
         self.app.config(bg=windowColor)
         self.app.resizable(False, False)
 
         filesLabelFrame = Frame(self.app)
-        filesLabelFrame.place(relx=0.02, rely=0.25, width=720, height=350)
+        filesLabelFrame.place(relx=0.02, rely=0.25, width=960, height=350)
 
         filesListScroll = Scrollbar(filesLabelFrame)
         filesListScroll.pack(side="right", fill="y")
@@ -38,8 +38,8 @@ class MainWindow:
 
         self.treeListOfFiles = ttk.Treeview(filesLabelFrame, columns="File", show="headings", yscrollcommand=filesListScroll.set, selectmode="none")
         self.treeListOfFiles.heading("#1", text="Ścieżka do pliku")
-        self.treeListOfFiles.column("#1", minwidth=700)
-        self.treeListOfFiles.place(width=700, height=350)
+        self.treeListOfFiles.column("#1", minwidth=940)
+        self.treeListOfFiles.place(width=940, height=350)
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.compiler = Compiler(self.app, self.treeListOfFiles, labelListOfFiles)
@@ -52,13 +52,16 @@ class MainWindow:
         buttonAdd.place(relx=0.02, rely=0.05)
 
         buttonEdit = customtkinter.CTkButton(master=self.app, text="Usuń", command=self.edit_window, width=120, bg_color=windowColor)
-        buttonEdit.place(relx=0.27, rely=0.05)
+        buttonEdit.place(relx=0.22, rely=0.05)
 
         buttonCompile = customtkinter.CTkButton(master=self.app, text="Łącz", command=self.compiler.mergePdf, width=120, bg_color=windowColor)
-        buttonCompile.place(relx=0.52, rely=0.05)
+        buttonCompile.place(relx=0.42, rely=0.05)
 
         buttonInfo = customtkinter.CTkButton(master=self.app, text="O programie", command=self.infoPage.open_page, width=120, bg_color=windowColor)
-        buttonInfo.place(relx = 0.77, rely = 0.05)
+        buttonInfo.place(relx = 0.62, rely = 0.05)
+
+        buttonCompress = customtkinter.CTkButton(master=self.app, text="Kompresuj", width=120, bg_color=windowColor)
+        buttonCompress.place(relx = 0.82, rely= 0.05)
         self.app.mainloop()
 
     def style_tree(self):

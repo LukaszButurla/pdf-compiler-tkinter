@@ -20,16 +20,16 @@ class Edit:
 
     def add_widgets(self):
         buttonCancel = customtkinter.CTkButton(self.editWindow, text="Anuluj", command=self.close_window, bg_color=self.color)
-        buttonCancel.place(relx=0.68, rely=0.85)
+        buttonCancel.place(relx=0.65, rely=0.85)
 
         buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź", command=self.save_changes, bg_color=self.color)
-        buttonAgree.place(relx=0.38, rely=0.85)
+        buttonAgree.place(relx=0.4, rely=0.85)
 
         buttonDelete = customtkinter.CTkButton(self.editWindow, text="Usuń", command=self.delete_row, bg_color=self.color)
-        buttonDelete.place(relx=0.08, rely=0.85)
+        buttonDelete.place(relx=0.15, rely=0.85)
 
         infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy", text_color=self.textColor)
-        infoLabel.place(relx=0.04, rely=0.03)
+        infoLabel.place(relx=0.02, rely=0.03)
 
         self.create_table(1)
 
@@ -50,7 +50,7 @@ class Edit:
     
     def create_table(self, files):
         tableFrame = Frame(self.editWindow)
-        tableFrame.place(relx=0.04, rely=0.13, width=690, height=330)
+        tableFrame.place(relx=0.02, rely=0.13, width=960, height=330)
 
         tableScroll = Scrollbar(tableFrame)
         tableScroll.pack(side="right", fill="y")
@@ -58,7 +58,7 @@ class Edit:
         self.table = ttk.Treeview(tableFrame, columns="Nazwa", show="headings", yscrollcommand=tableScroll.set)
         tableScroll.config(command=self.table.yview)
         self.table.heading("#1",text="Nazwa")
-        self.table.place(width=670, height=330)
+        self.table.place(width=940, height=330)
 
     def close_window(self):
         self.editWindow.destroy()
