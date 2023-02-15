@@ -2,7 +2,6 @@ import tkinter
 from tkinter import Frame
 import customtkinter
 from logic.compiler import Compiler
-from logic.compress import Compress
 from logic.edit import Edit
 from logic.files import Files
 from Ui.info import InfoPage
@@ -46,7 +45,6 @@ class MainWindow:
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
-        self.compress = Compress()
         self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles)
         self.compiler = Compiler(self.files)
         self.edit = Edit(self.app, self.files, windowColor, secondColor, textColor)
@@ -65,8 +63,7 @@ class MainWindow:
         buttonInfo = customtkinter.CTkButton(master=self.app, text="O programie", command=self.infoPage.open_page, width=120, bg_color=windowColor)
         buttonInfo.place(relx = 0.62, rely = 0.05)
 
-        buttonCompress = customtkinter.CTkButton(master=self.app, text="Kompresuj", width=120, bg_color=windowColor)
-        buttonCompress.place(relx = 0.82, rely= 0.05)
+
         self.app.mainloop()
 
     def style_tree(self):
