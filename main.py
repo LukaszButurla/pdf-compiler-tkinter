@@ -2,6 +2,7 @@ import tkinter
 from tkinter import Frame
 import customtkinter
 from logic.compiler import Compiler
+from logic.split import Split
 from logic.edit import Edit
 from logic.files import Files
 from Ui.info import InfoPage
@@ -46,6 +47,7 @@ class MainWindow:
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
         self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles)
+        self.split = Split(self.files)
         self.compiler = Compiler(self.files)
         self.edit = Edit(self.app, self.files, windowColor, secondColor, textColor)
 
@@ -60,7 +62,7 @@ class MainWindow:
         buttonCompile = customtkinter.CTkButton(master=self.app, text="Łącz", command = self.compiler.mergePdf, width=120, bg_color=windowColor)
         buttonCompile.place(relx=0.42, rely=0.05)
 
-        buttonSplit = customtkinter.CTkButton(master=self.app, text="Dziel", width=120, bg_color=windowColor)
+        buttonSplit = customtkinter.CTkButton(master=self.app, text="Dziel", command=self.split.split_file, width=120, bg_color=windowColor)
         buttonSplit.place(relx=0.62, rely=0.05)
 
         buttonInfo = customtkinter.CTkButton(master=self.app, text="O programie", command=self.infoPage.open_page, width=120, bg_color=windowColor)
