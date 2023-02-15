@@ -60,8 +60,11 @@ class MainWindow:
         buttonCompile = customtkinter.CTkButton(master=self.app, text="Łącz", command = self.compiler.mergePdf, width=120, bg_color=windowColor)
         buttonCompile.place(relx=0.42, rely=0.05)
 
+        buttonSplit = customtkinter.CTkButton(master=self.app, text="Dziel", width=120, bg_color=windowColor)
+        buttonSplit.place(relx=0.62, rely=0.05)
+
         buttonInfo = customtkinter.CTkButton(master=self.app, text="O programie", command=self.infoPage.open_page, width=120, bg_color=windowColor)
-        buttonInfo.place(relx = 0.62, rely = 0.05)
+        buttonInfo.place(relx = 0.82, rely = 0.05)
 
 
         self.app.mainloop()
