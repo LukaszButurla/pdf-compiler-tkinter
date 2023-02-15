@@ -23,15 +23,19 @@ class InfoPage:
         boxFrame.place(relx = 0.06, rely=0.08, width=boxWidth, height=325)
 
         labelCompanyName = customtkinter.CTkLabel(boxFrame,
-                                              text="Doradcy Podatkowi Piotr Maciejewski,\n Monika Maciejewska Spółka z ograniczoną\nodpowiedzialnością",
+                                              text="Doradcy Podatkowi Piotr Maciejewski,\n Monika Maciejewska Spółka z ograniczoną\nodpowiedzialnością",                                            
                                               font=("Arial", 18),
-                                              text_color=self.textColor)
-        labelCompanyName.place(relx = 0, rely = 0.2, width = boxWidth, height=100)
+                                              text_color=self.textColor,
+                                              width = boxWidth-125,
+                                              height=100)
+        labelCompanyName.place(relx = 0, rely = 0.2)
 
         labelCompanyContact = customtkinter.CTkLabel(boxFrame, text="Strona internetowa: www.doradcy.net.pl\nE-mail: maciejewski@doradcy.net.pl\nNr tel. (32) 476 36 13",
                                                      font=("Arial", 18),
-                                                     text_color=self.textColor)
-        labelCompanyContact.place(relx = 0, rely = 0.5, width = boxWidth, height=100)
+                                                     text_color=self.textColor,
+                                                     width = boxWidth-125,
+                                                     height=100)
+        labelCompanyContact.place(relx = 0, rely = 0.5)
 
         btnExit = customtkinter.CTkButton(self.page, text="Wyjdź", command=self.close_page)
         btnExit.place(relx=0.42, rely=0.85)
