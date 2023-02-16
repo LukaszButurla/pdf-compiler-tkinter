@@ -32,8 +32,9 @@ class SplitOptions:
         self.amountInfoLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor)
         self.amountInfoLabel.place(relx = 0.025, rely = 0.225)
 
-        self.amountOfFilesSlider = customtkinter.CTkSlider(self.settingsFrame, command=self.update_slider, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
+        self.amountOfFilesSlider = customtkinter.CTkSlider(self.settingsFrame, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
         self.amountOfFilesSlider.place(relx = 0.025, rely = 0.3)
+        self.amountOfFilesSlider.bind("<ButtonRelease-1>", self.update_slider)
 
         self.amountOfFilesLabel = customtkinter.CTkLabel(self.settingsFrame, text = "2", text_color=self.textColor)
         self.amountOfFilesLabel.place(relx = 0.35, rely = 0.285)
@@ -78,8 +79,10 @@ class SplitOptions:
         l = 0
         for i in self.newFilesList.winfo_children():
             l += 1
-            if l > number:
-                i.pack_forget()
-
-            elif l >= number:
+            if l <= number:
                 i.pack(fill="x")
+            else:
+                i.pack_forget()
+            
+
+            
