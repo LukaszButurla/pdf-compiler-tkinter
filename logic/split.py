@@ -1,6 +1,7 @@
 from tkinter import Toplevel
 from logic.splitOptions import SplitOptions
 import customtkinter
+from PyPDF2 import PdfReader
 
 class Split:
     def __init__(self, app, files, windowColor, secondColor, textColor):
@@ -10,7 +11,11 @@ class Split:
 
     def split_file(self):
         if len(self.files.allFiles) == 1:
-            self.splitOptions.open_settings(8)
+            file = open(self.files.allFiles[0], "rb")
+            read = PdfReader(file)
+            pages = len(read.pages)
+
+            self.splitOptions.open_settings(pages, self.files.allFiles[0])
         else:
             self.open_error_window()
 
