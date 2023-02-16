@@ -1,14 +1,16 @@
 from tkinter import Toplevel
+from logic.splitOptions import SplitOptions
 import customtkinter
 
 class Split:
-    def __init__(self, app, files):
+    def __init__(self, app, files, windowColor, secondColor, textColor):
         self.files = files
         self.app = app
+        self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor)
 
     def split_file(self):
         if len(self.files.allFiles) == 1:
-            print("split")
+            self.splitOptions.open_settings(8)
         else:
             self.open_error_window()
 
