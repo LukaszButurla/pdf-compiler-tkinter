@@ -20,8 +20,8 @@ class SplitOptions:
         selectedFileLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Wybrany plik: {}".format(file), text_color=self.textColor)
         selectedFileLabel.place(relx = 0.025, rely = 0.025)
 
-        amountInfoLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor)
-        amountInfoLabel.place(relx = 0.025, rely = 0.125)
+        self.amountInfoLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor)
+        self.amountInfoLabel.place(relx = 0.025, rely = 0.125)
 
         self.amountOfFilesSlider = customtkinter.CTkSlider(self.settingsFrame, command=self.update_slider, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
         self.amountOfFilesSlider.place(relx = 0.025, rely = 0.2)
@@ -44,6 +44,16 @@ class SplitOptions:
 
         self.amountOfFilesSlider.set(2)
         self.update_frame(2)
+        self.disable_enable_widgets("disable")
+
+    def disable_enable_widgets(self, stat):
+        
+        self.amountInfoLabel.configure(state = stat)
+        self.amountOfFilesSlider.configure(state = stat)
+        self.amountOfFilesLabel.configure(state = stat)
+        for child in self.newFilesList.winfo_children():
+            for c in child.winfo_children():
+                c.configure(state = stat)
 
 
     def update_slider(self, event):
