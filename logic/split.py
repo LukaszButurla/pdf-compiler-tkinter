@@ -10,7 +10,7 @@ class Split:
 
     def split_file(self):
         if len(self.files.allFiles) == 1:
-            self.splitOptions.open_settings(8)
+            self.splitOptions.open_settings(8, self.files.allFiles[0])
         else:
             self.open_error_window()
 
