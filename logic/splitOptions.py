@@ -32,7 +32,7 @@ class SplitOptions:
         self.newFilesList = customtkinter.CTkScrollableFrame(self.settingsFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.place(relx = 0.5, rely = 0.1)
         
-        for i in range(25):
+        for i in range(amountOfPages):
             box = Frame(self.newFilesList, bg=self.secondColor, height=100, highlightbackground="black", highlightthickness=1)
             box.pack(fill="x")
 
