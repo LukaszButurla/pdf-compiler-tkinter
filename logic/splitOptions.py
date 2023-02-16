@@ -1,5 +1,6 @@
-from tkinter import Frame
+from tkinter import Frame, StringVar
 import customtkinter
+from functools import partial
 
 class SplitOptions:
 
@@ -20,14 +21,22 @@ class SplitOptions:
         selectedFileLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Wybrany plik: {}".format(file), text_color=self.textColor)
         selectedFileLabel.place(relx = 0.025, rely = 0.025)
 
+        selectionMode = StringVar()
+
+        oneCheck = customtkinter.CTkRadioButton(self.settingsFrame, text = "Dziel po stronie", command=partial(self.disable_enable_widgets, selectionMode), value="disabled", variable=selectionMode, text_color=self.textColor)
+        oneCheck.place(relx = 0.025, rely = 0.125)
+
+        multipleCheck = customtkinter.CTkRadioButton(self.settingsFrame, text = "Dziel niestandardowo", command=partial(self.disable_enable_widgets, selectionMode), value="normal", variable=selectionMode, text_color=self.textColor)
+        multipleCheck.place(relx = 0.2, rely = 0.125)
+
         self.amountInfoLabel = customtkinter.CTkLabel(self.settingsFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor)
-        self.amountInfoLabel.place(relx = 0.025, rely = 0.125)
+        self.amountInfoLabel.place(relx = 0.025, rely = 0.225)
 
         self.amountOfFilesSlider = customtkinter.CTkSlider(self.settingsFrame, command=self.update_slider, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
-        self.amountOfFilesSlider.place(relx = 0.025, rely = 0.2)
+        self.amountOfFilesSlider.place(relx = 0.025, rely = 0.3)
 
         self.amountOfFilesLabel = customtkinter.CTkLabel(self.settingsFrame, text = "2", text_color=self.textColor)
-        self.amountOfFilesLabel.place(relx = 0.35, rely = 0.185)
+        self.amountOfFilesLabel.place(relx = 0.35, rely = 0.285)
 
         self.newFilesList = customtkinter.CTkScrollableFrame(self.settingsFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.place(relx = 0.5, rely = 0.1)
@@ -44,10 +53,14 @@ class SplitOptions:
 
         self.amountOfFilesSlider.set(2)
         self.update_frame(2)
-        self.disable_enable_widgets("disable")
+        self.disable_enable_widgets("disabled")
+        oneCheck.select()
 
     def disable_enable_widgets(self, stat):
         
+        if stat != "disabled" and stat != "normal":
+            stat = stat.get()
+
         self.amountInfoLabel.configure(state = stat)
         self.amountOfFilesSlider.configure(state = stat)
         self.amountOfFilesLabel.configure(state = stat)
