@@ -41,7 +41,13 @@ class SplitOptions:
 
         self.newFilesList = customtkinter.CTkScrollableFrame(self.settingsFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.place(relx = 0.5, rely = 0.1)
-        
+
+        btnCancel = customtkinter.CTkButton(self.settingsFrame, text = "Anuluj", command=self.close_frame)
+        btnCancel.place(relx = 0.3, rely = 0.9)
+
+        btnAccept = customtkinter.CTkButton(self.settingsFrame, text = "Potwierdź")
+        btnAccept.place(relx = 0.55, rely = 0.9)
+
         for i in range(amountOfPages):
             box = Frame(self.newFilesList, bg=self.secondColor, height=100, highlightbackground="black", highlightthickness=1)
             box.pack(fill="x")
@@ -56,6 +62,9 @@ class SplitOptions:
         self.update_frame(2)
         self.disable_enable_widgets("disabled")
         oneCheck.select()
+
+    def close_frame(self):
+        self.settingsFrame.destroy()
 
     def disable_enable_widgets(self, stat):
         
