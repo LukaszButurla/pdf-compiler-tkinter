@@ -1,4 +1,4 @@
-from tkinter import Toplevel
+from tkinter import Toplevel, filedialog
 from logic.splitOptions import SplitOptions
 import customtkinter
 from PyPDF2 import PdfReader, PdfWriter
@@ -35,6 +35,8 @@ class Split:
 
     def split_file(self, mode, amount, configList):
 
+        folderToSave = filedialog.askdirectory()
+
         match mode:
             case "one":
                 file = open(self.files.allFiles[0], "rb")
@@ -42,7 +44,7 @@ class Split:
                 pages = read.pages
                 i = 1
                 for p in pages:
-                    with open(r"C:\Users\praktykant\Desktop\program\pdf\test_{}.pdf".format(i), "wb") as fSave:
+                    with open(r"{}\strona_{}.pdf".format(folderToSave, i), "wb") as fSave:
                         toSave = PdfWriter()
                         toSave.add_page(p)
                         toSave.write(fSave)
@@ -67,12 +69,13 @@ class Split:
                             for i in range(int(t[0]), int(t[1])+1):
                                 tmp.append(i)
                         else:
-                            tmp.append(c)
+                            tmp.append(int(c))
 #--------------add selected pages---------------------
-                    fRead = PdfReader(r"C:\Users\praktykant\Desktop\program\pdf\do dzielenia.pdf")
+                    fRead = PdfReader(self.files.allFiles[0])
                     fSave = PdfWriter()
                     amountOfPages = len(fRead.pages)
-                    if int(max(tmp)) <= amountOfPages:
+
+                    if int(max(tmp)) <= int(amountOfPages):
                         for t in tmp:
                             t = int(t)
                             fSave.add_page(fRead.pages[t-1])
@@ -85,14 +88,3 @@ class Split:
                     else:
                         print("Podaj poprawne liczby")
                 
-
-
-
-
-
-                        
-
-
-
-
-    
