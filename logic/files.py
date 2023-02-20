@@ -1,5 +1,4 @@
-from tkinter import filedialog as fd
-from tkinter import END
+from tkinter import filedialog as fd, END
 from logic.windowAskSameFile import WindowAskSameFile
 
 class Files:

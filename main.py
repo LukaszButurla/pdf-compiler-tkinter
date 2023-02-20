@@ -1,15 +1,10 @@
-import tkinter
-from tkinter import Frame
+from tkinter import Frame, Scrollbar, ttk
 import customtkinter
 from logic.compiler import Compiler
 from logic.split import Split
 from logic.edit import Edit
 from logic.files import Files
 from Ui.info import InfoPage
-from tkinter import Scrollbar
-from tkinter import ttk
-from tkinter import END
-from functools import partial
 
 class MainWindow:
     
@@ -23,8 +18,6 @@ class MainWindow:
         textColor = "white"
         self.app = customtkinter.CTk()
         self.app.title("Łącznik pdf")
-        # customtkinter.set_appearance_mode("dark")
-        # customtkinter.set_default_color_theme("blue")
         self.app.geometry("800x400")
         self.app.config(bg=windowColor)
         self.app.resizable(False, False)

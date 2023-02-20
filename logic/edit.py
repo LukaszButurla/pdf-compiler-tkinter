@@ -1,8 +1,5 @@
 import customtkinter
-from tkinter import Frame
-from tkinter import ttk
-from tkinter import END
-from tkinter import Scrollbar
+from tkinter import Frame, ttk, END, Scrollbar
 
 class Edit:
     def __init__(self, app, files, color, secondColor, textColor):

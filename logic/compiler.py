@@ -1,6 +1,5 @@
 from tkinter import filedialog as fd
 import PyPDF2
-from tkinter import END
 
 class Compiler:
     def __init__(self, files):
