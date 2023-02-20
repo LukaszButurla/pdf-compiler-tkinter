@@ -41,24 +41,30 @@ class Split:
 
         folderToSave = filedialog.askdirectory()
         name = path.basename(self.files.allFiles[0])
+        success = True
 
         if folderToSave != "":
 
             match mode:
                 case "one":
-                    file = open(self.files.allFiles[0], "rb")
-                    read = PdfReader(file)
-                    pages = read.pages
-                    i = 1
-                    for p in pages:
-                        with open(r"{}\{}_{}.pdf".format(folderToSave, name, i), "wb") as fSave:
-                            toSave = PdfWriter()
-                            toSave.add_page(p)
-                            toSave.write(fSave)
-                            i+=1
-                    else:
-                        file.close()
-                        self.open_error_window("Dzielenie powiodło się")
+                    try:
+                        file = open(self.files.allFiles[0], "rb")
+                        read = PdfReader(file)
+                        pages = read.pages
+                        i = 1
+                        for p in pages:
+                            with open(r"{}\{}_{}.pdf".format(folderToSave, name, i), "wb") as fSave:
+                                toSave = PdfWriter()
+                                toSave.add_page(p)
+                                toSave.write(fSave)
+                                i+=1                        
+                    except:
+                        self.open_error_window("Coś poszło nie tak")
+                        success = False
+                    
+                    if success:
+                            file.close()
+                            self.open_error_window("Dzielenie powiodło się")
 
                 case "multiple":
 
@@ -94,7 +100,9 @@ class Split:
                                             tmp.append(i)
 
                                 except:
-                                    self.open_error_window("Coś poszło nie tak")                            
+                                    self.open_error_window("Coś poszło nie tak")
+                                    success = False
+                                                               
                             else:
                                 tmp.append(int(c))
 
@@ -115,8 +123,9 @@ class Split:
 #----------------problem with inputs----------------------
                         else:
                             self.open_error_window("Podaj popawne liczby")
+                            success = False
 #----------------spliting ended succesflly-------------------
-                    else:
+                    if success:
                         self.open_error_window("Dzielenie powiodło się")
 
                 
