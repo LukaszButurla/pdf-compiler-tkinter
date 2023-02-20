@@ -4,13 +4,14 @@ from functools import partial
 
 class SplitOptions:
 
-    def __init__(self, app, color, secondColor, textColor, splitFunc):
+    def __init__(self, app, color, secondColor, textColor, splitFunc, openWindowFunc):
         self.app = app
         self.windowColor = color
         self.secondColor = secondColor
         self.textColor = textColor
         self.mode = "one"
         self.split_file = splitFunc
+        self.open_error_window = openWindowFunc
 
     def open_settings(self, amountOfPages, file):
 
@@ -69,15 +70,19 @@ class SplitOptions:
         self.settingsFrame.destroy()
 
     def split_click(self):
-        configList = []
 
-        for child in self.newFilesList.winfo_children():
-            for c in child.winfo_children():
-                if isinstance(c, customtkinter.CTkEntry):
-                    configList.append(c.get())
+        try:
+            configList = []
 
-        amount = self.amountOfFilesSlider.get()
-        self.split_file(self.mode, amount, configList)
+            for child in self.newFilesList.winfo_children():
+                for c in child.winfo_children():
+                    if isinstance(c, customtkinter.CTkEntry):
+                        configList.append(c.get())
+
+            amount = self.amountOfFilesSlider.get()
+            self.split_file(self.mode, amount, configList)
+        except:
+            self.open_error_window("Coś poszło nie tak")
 
     def disable_enable_widgets(self, stat):
         

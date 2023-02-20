@@ -7,7 +7,7 @@ class Split:
     def __init__(self, app, files, windowColor, secondColor, textColor):
         self.files = files
         self.app = app
-        self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor, self.split_file)
+        self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor, self.split_file, self.open_error_window)
 
     def open_split_file(self):
         if len(self.files.allFiles) == 1:
@@ -17,18 +17,18 @@ class Split:
 
             self.splitOptions.open_settings(pages, self.files.allFiles[0])
         else:
-            self.open_error_window()
+            self.open_error_window("Wybierz tylko jeden plik")
 
-    def open_error_window(self):
+    def open_error_window(self, text):
 
         self.errorWindow = Toplevel(self.app, background="#072d5e")
-        self.errorWindow.geometry("250x150")
+        self.errorWindow.geometry("350x150")
 
         btnAccept = customtkinter.CTkButton(self.errorWindow, text = "Ok", command=self.close_error_window, width= 70)
         btnAccept.place(relx = 0.35, rely= 0.6)
 
-        labelInfo = customtkinter.CTkLabel(self.errorWindow, text = "Wybierz tylko 1 plik", text_color="white")
-        labelInfo.place(relx = 0.25, rely = 0.2)
+        labelInfo = customtkinter.CTkLabel(self.errorWindow, text = text, text_color="white", width=250, font=("Arial", 14))
+        labelInfo.place(relx = 0.05, rely = 0.2)
 
     def close_error_window(self):
         self.errorWindow.destroy()
@@ -37,74 +37,77 @@ class Split:
 
         folderToSave = filedialog.askdirectory()
 
-        match mode:
-            case "one":
-                file = open(self.files.allFiles[0], "rb")
-                read = PdfReader(file)
-                pages = read.pages
-                i = 1
-                for p in pages:
-                    with open(r"{}\strona_{}.pdf".format(folderToSave, i), "wb") as fSave:
-                        toSave = PdfWriter()
-                        toSave.add_page(p)
-                        toSave.write(fSave)
-                        i+=1
-                else:
-                    file.close()
+        if folderToSave != "":
 
-            case "multiple":
+            match mode:
+                case "one":
+                    file = open(self.files.allFiles[0], "rb")
+                    read = PdfReader(file)
+                    pages = read.pages
+                    i = 1
+                    for p in pages:
+                        with open(r"{}\strona_{}.pdf".format(folderToSave, i), "wb") as fSave:
+                            toSave = PdfWriter()
+                            toSave.add_page(p)
+                            toSave.write(fSave)
+                            i+=1
+                    else:
+                        file.close()
+
+                case "multiple":
 
 #--------------set readable syntax--------------------
-                number = 1
-                for i in range(int(amount)):
-                    config = configList[i]
-                    config = config.replace(" ", ",")
-                    config = config.replace(";", ",")
-                    config = config.split(",")
-                    tmp = []
+                    number = 1
+                    for i in range(int(amount)):
+                        config = configList[i]
+                        config = config.replace(" ", ",")
+                        config = config.replace(";", ",")
+                        config = config.split(",")
+                        tmp = []
 
 #--------------get pages with "-"---------------------
-                    for c in config:
-                        if "-" in c:
-                            t = c.split("-")
+                        for c in config:
+                            if "-" in c:
+                                t = c.split("-")
 
-                            try:
+                                try:
 
-                                if int(t[0]) > int(t[1]):
-                                    t1 = t[0]
-                                    t[0] = int(t[1])
-                                    t[1] = int(t1) 
+                                    if int(t[0]) > int(t[1]):
+                                        t1 = t[0]
+                                        t[0] = int(t[1])
+                                        t[1] = int(t1) 
 
-                                    for i in range(t[0], t[1]+1):
-                                        tmp.append(i)
+                                        for i in range(t[0], t[1]+1):
+                                            tmp.append(i)
 
-                                    else:
-                                        tmp.reverse() 
-                                else:                             
-                                
-                                    for i in range(int(t[0]), int(t[1])+1):
-                                        tmp.append(i)
+                                        else:
+                                            tmp.reverse() 
+                                    else:                             
+                                    
+                                        for i in range(int(t[0]), int(t[1])+1):
+                                            tmp.append(i)
 
-                            except:
-                                print("something went wrong")                            
-                        else:
-                            tmp.append(int(c))
+                                except:
+                                    self.open_error_window("Coś poszło nie tak")                            
+                            else:
+                                tmp.append(int(c))
 
 #--------------add selected pages---------------------
-                    fRead = PdfReader(self.files.allFiles[0])
-                    fSave = PdfWriter()
-                    amountOfPages = len(fRead.pages)
+                        fRead = PdfReader(self.files.allFiles[0])
+                        fSave = PdfWriter()
+                        amountOfPages = len(fRead.pages)
 
-                    if int(max(tmp)) <= int(amountOfPages):
-                        for t in tmp:
-                            t = int(t)
-                            fSave.add_page(fRead.pages[t-1])
+                        if int(max(tmp)) <= int(amountOfPages):
+                            for t in tmp:
+                                t = int(t)
+                                fSave.add_page(fRead.pages[t-1])
 
-                        else:
-                            with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
-                                fSave.write(finalFile)
-                            number += 1
+                            else:
+                                with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
+                                    fSave.write(finalFile)
+                                number += 1
 #----------------problem with inputs----------------------
-                    else:
-                        print("Podaj poprawne liczby")
+                        else:
+                            self.open_error_window("Podaj popawne liczby")
+
                 
