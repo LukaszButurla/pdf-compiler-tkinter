@@ -41,7 +41,7 @@ class InfoPage:
         btnExit.place(relx=0.42, rely=0.85)
 
         labelVersion = customtkinter.CTkLabel(self.page,
-                                              text="Wersja programu: 1.1",
+                                              text="Wersja programu: 1.2",
                                               justify = LEFT,
                                               font=("Arial", 12),
                                               text_color=self.textColor)
