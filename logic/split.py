@@ -2,6 +2,7 @@ from tkinter import Toplevel, filedialog
 from logic.splitOptions import SplitOptions
 import customtkinter
 from PyPDF2 import PdfReader, PdfWriter
+from os import path
 
 class Split:
     def __init__(self, app, files, windowColor, secondColor, textColor):
@@ -39,23 +40,31 @@ class Split:
     def split_file(self, mode, amount, configList):
 
         folderToSave = filedialog.askdirectory()
+        name = path.basename(self.files.allFiles[0])
+        success = True
 
         if folderToSave != "":
 
             match mode:
                 case "one":
-                    file = open(self.files.allFiles[0], "rb")
-                    read = PdfReader(file)
-                    pages = read.pages
-                    i = 1
-                    for p in pages:
-                        with open(r"{}\strona_{}.pdf".format(folderToSave, i), "wb") as fSave:
-                            toSave = PdfWriter()
-                            toSave.add_page(p)
-                            toSave.write(fSave)
-                            i+=1
-                    else:
-                        file.close()
+                    try:
+                        file = open(self.files.allFiles[0], "rb")
+                        read = PdfReader(file)
+                        pages = read.pages
+                        i = 1
+                        for p in pages:
+                            with open(r"{}\{}_{}.pdf".format(folderToSave, name, i), "wb") as fSave:
+                                toSave = PdfWriter()
+                                toSave.add_page(p)
+                                toSave.write(fSave)
+                                i+=1                        
+                    except:
+                        self.open_error_window("Coś poszło nie tak")
+                        success = False
+                    
+                    if success:
+                            file.close()
+                            self.open_error_window("Dzielenie powiodło się")
 
                 case "multiple":
 
@@ -91,7 +100,9 @@ class Split:
                                             tmp.append(i)
 
                                 except:
-                                    self.open_error_window("Coś poszło nie tak")                            
+                                    self.open_error_window("Coś poszło nie tak")
+                                    success = False
+                                                               
                             else:
                                 tmp.append(int(c))
 
@@ -106,11 +117,15 @@ class Split:
                                 fSave.add_page(fRead.pages[t-1])
 
                             else:
-                                with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
+                                with open(r"{}\{}_{}.pdf".format(folderToSave, name, number), "wb") as finalFile:
                                     fSave.write(finalFile)
                                 number += 1
 #----------------problem with inputs----------------------
                         else:
                             self.open_error_window("Podaj popawne liczby")
+                            success = False
+#----------------spliting ended succesflly-------------------
+                    if success:
+                        self.open_error_window("Dzielenie powiodło się")
 
                 
