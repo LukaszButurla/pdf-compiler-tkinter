@@ -34,7 +34,7 @@ class Files:
         self.filesLabel.configure(text = "Lista plików: {}".format(len(self.allFiles)))
 
     def add_row_to_tree(self, value):
-        self.tree.insert("", END, values=value)
+        self.tree.insert("", END, values=value.replace(" ", "_"))
 
     def clear_tree(self):
         for i in self.tree.get_children():
