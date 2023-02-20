@@ -4,11 +4,13 @@ from functools import partial
 
 class SplitOptions:
 
-    def __init__(self, app, color, secondColor, textColor):
+    def __init__(self, app, color, secondColor, textColor, splitFunc):
         self.app = app
         self.windowColor = color
         self.secondColor = secondColor
         self.textColor = textColor
+        self.mode = "one"
+        self.split_file = splitFunc
 
     def open_settings(self, amountOfPages, file):
 
@@ -45,7 +47,7 @@ class SplitOptions:
         btnCancel = customtkinter.CTkButton(self.settingsFrame, text = "Anuluj", command=self.close_frame)
         btnCancel.place(relx = 0.3, rely = 0.9)
 
-        btnAccept = customtkinter.CTkButton(self.settingsFrame, text = "Potwierdź")
+        btnAccept = customtkinter.CTkButton(self.settingsFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.place(relx = 0.55, rely = 0.9)
 
         for i in range(amountOfPages):
@@ -66,10 +68,18 @@ class SplitOptions:
     def close_frame(self):
         self.settingsFrame.destroy()
 
+    def split_click(self):
+        self.split_file(self.mode)
+
     def disable_enable_widgets(self, stat):
         
         if stat != "disabled" and stat != "normal":
             stat = stat.get()
+
+        if stat == "disabled":
+            self.mode = "one"
+        elif stat == "normal":
+            self.mode = "multiple"
 
         self.amountInfoLabel.configure(state = stat)
         self.amountOfFilesSlider.configure(state = stat)
