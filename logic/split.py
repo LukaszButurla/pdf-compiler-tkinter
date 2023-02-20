@@ -51,7 +51,7 @@ class Split:
                     pages = read.pages
                     i = 1
                     for p in pages:
-                        with open(r"{}\strona_{}.pdf".format(folderToSave, i), "wb") as fSave:
+                        with open(r"{}\{}_{}.pdf".format(folderToSave, name, i), "wb") as fSave:
                             toSave = PdfWriter()
                             toSave.add_page(p)
                             toSave.write(fSave)
