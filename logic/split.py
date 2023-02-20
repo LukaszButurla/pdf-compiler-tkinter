@@ -58,6 +58,7 @@ class Split:
                             i+=1
                     else:
                         file.close()
+                        self.open_error_window("Dzielenie powiodło się")
 
                 case "multiple":
 
@@ -114,5 +115,8 @@ class Split:
 #----------------problem with inputs----------------------
                         else:
                             self.open_error_window("Podaj popawne liczby")
+#----------------spliting ended succesflly-------------------
+                    else:
+                        self.open_error_window("Dzielenie powiodło się")
 
                 
