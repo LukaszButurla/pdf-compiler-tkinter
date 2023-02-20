@@ -15,7 +15,10 @@ class Split:
             read = PdfReader(file)
             pages = len(read.pages)
 
-            self.splitOptions.open_settings(pages, self.files.allFiles[0])
+            if pages >= 2:
+                self.splitOptions.open_settings(pages, self.files.allFiles[0])
+            else:
+                self.open_error_window("Wybrany plik ma tylko 1 stronę")
         else:
             self.open_error_window("Wybierz tylko jeden plik")
 
