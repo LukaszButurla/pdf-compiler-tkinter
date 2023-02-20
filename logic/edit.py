@@ -65,7 +65,7 @@ class Edit:
         
 
     def add_column(self, files):
-        files.reverse()
+        print(self.files.allFiles)
         for f in files:
             f = f.replace(" ", "_")
             self.table.insert("", END, values=f)
