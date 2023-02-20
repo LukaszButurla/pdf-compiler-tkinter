@@ -69,7 +69,15 @@ class SplitOptions:
         self.settingsFrame.destroy()
 
     def split_click(self):
-        self.split_file(self.mode)
+        configList = []
+
+        for child in self.newFilesList.winfo_children():
+            for c in child.winfo_children():
+                if isinstance(c, customtkinter.CTkEntry):
+                    configList.append(c.get())
+
+        amount = self.amountOfFilesSlider.get()
+        self.split_file(self.mode, amount, configList)
 
     def disable_enable_widgets(self, stat):
         
