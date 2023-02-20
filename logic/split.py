@@ -52,12 +52,15 @@ class Split:
 
             case "multiple":
 
+#--------------set readable syntax--------------------
+                number = 1
                 for i in range(int(amount)):
                     config = configList[i]
                     config = config.replace(" ", ",")
                     config = config.split(",")
                     tmp = []
 
+#--------------get pages with "-"---------------------
                     for c in config:
                         if "-" in c:
                             t = c.split("-")
@@ -65,6 +68,18 @@ class Split:
                                 tmp.append(i)
                         else:
                             tmp.append(c)
+#--------------add selected pages---------------------
+                    fRead = PdfReader(r"C:\Users\praktykant\Desktop\program\pdf\do dzielenia.pdf")
+                    fSave = PdfWriter()
+                    for t in tmp:
+                        fSave.add_page(fRead.pages[int(t)-1])
+                    else:
+                        with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
+                            fSave.write(finalFile)
+                        number += 1
+                
+
+
 
 
 
