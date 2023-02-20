@@ -46,7 +46,7 @@ class MainWindow:
 
         filesListScroll.config(command=self.treeListOfFiles.yview)
         self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
-        self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles)
+        self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles, windowColor, textColor)
         self.split = Split(self.app, self.files, windowColor, secondColor, textColor)
         self.compiler = Compiler(self.files)
         self.edit = Edit(self.app, self.files, windowColor, secondColor, textColor)

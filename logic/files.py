@@ -4,12 +4,12 @@ from logic.windowAskSameFile import WindowAskSameFile
 
 class Files:
 
-    def __init__(self, window, filesTree, filesLabel):
+    def __init__(self, window, filesTree, filesLabel, color, textColor):
         self.allFiles = []
         self.window = window
         self.tree = filesTree
         self.filesLabel = filesLabel
-        self.windowAskSameFile = WindowAskSameFile(self)
+        self.windowAskSameFile = WindowAskSameFile(self, color, textColor)
 
 
     def open_select_file_window(self):
