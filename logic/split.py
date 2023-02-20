@@ -2,6 +2,7 @@ from tkinter import Toplevel, filedialog
 from logic.splitOptions import SplitOptions
 import customtkinter
 from PyPDF2 import PdfReader, PdfWriter
+from os import path
 
 class Split:
     def __init__(self, app, files, windowColor, secondColor, textColor):
@@ -39,6 +40,7 @@ class Split:
     def split_file(self, mode, amount, configList):
 
         folderToSave = filedialog.askdirectory()
+        name = path.basename(self.files.allFiles[0])
 
         if folderToSave != "":
 
@@ -106,7 +108,7 @@ class Split:
                                 fSave.add_page(fRead.pages[t-1])
 
                             else:
-                                with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
+                                with open(r"{}\{}_{}.pdf".format(folderToSave, name, number), "wb") as finalFile:
                                     fSave.write(finalFile)
                                 number += 1
 #----------------problem with inputs----------------------
