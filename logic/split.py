@@ -59,6 +59,7 @@ class Split:
                 for i in range(int(amount)):
                     config = configList[i]
                     config = config.replace(" ", ",")
+                    config = config.replace(";", ",")
                     config = config.split(",")
                     tmp = []
 
@@ -67,23 +68,28 @@ class Split:
                         if "-" in c:
                             t = c.split("-")
 
-                            if int(t[0]) > int(t[1]):
-                                t1 = t[0]
-                                t[0] = int(t[1])
-                                t[1] = int(t1) 
+                            try:
 
-                                for i in range(t[0], t[1]+1):
-                                    tmp.append(i)
+                                if int(t[0]) > int(t[1]):
+                                    t1 = t[0]
+                                    t[0] = int(t[1])
+                                    t[1] = int(t1) 
 
-                                else:
-                                    tmp.reverse() 
-                            else:                             
-                            
-                                for i in range(int(t[0]), int(t[1])+1):
-                                    tmp.append(i)                                
+                                    for i in range(t[0], t[1]+1):
+                                        tmp.append(i)
+
+                                    else:
+                                        tmp.reverse() 
+                                else:                             
+                                
+                                    for i in range(int(t[0]), int(t[1])+1):
+                                        tmp.append(i)
+
+                            except:
+                                print("something went wrong")                            
                         else:
                             tmp.append(int(c))
-                            
+
 #--------------add selected pages---------------------
                     fRead = PdfReader(self.files.allFiles[0])
                     fSave = PdfWriter()
@@ -98,7 +104,7 @@ class Split:
                             with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
                                 fSave.write(finalFile)
                             number += 1
-#----------------number out of pdf file pages----------------------    
+#----------------problem with inputs----------------------
                     else:
                         print("Podaj poprawne liczby")
                 
