@@ -71,12 +71,19 @@ class Split:
 #--------------add selected pages---------------------
                     fRead = PdfReader(r"C:\Users\praktykant\Desktop\program\pdf\do dzielenia.pdf")
                     fSave = PdfWriter()
-                    for t in tmp:
-                        fSave.add_page(fRead.pages[int(t)-1])
+                    amountOfPages = len(fRead.pages)
+                    if int(max(tmp)) <= amountOfPages:
+                        for t in tmp:
+                            t = int(t)
+                            fSave.add_page(fRead.pages[t-1])
+
+                        else:
+                            with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
+                                fSave.write(finalFile)
+                            number += 1
+#----------------number out of pdf file pages----------------------    
                     else:
-                        with open(r"C:\Users\praktykant\Desktop\program\pdf\po\test_{}.pdf".format(number), "wb") as finalFile:
-                            fSave.write(finalFile)
-                        number += 1
+                        print("Podaj poprawne liczby")
                 
 
 
