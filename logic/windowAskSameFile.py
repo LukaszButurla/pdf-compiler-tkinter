@@ -4,14 +4,16 @@ from functools import partial
 
 class WindowAskSameFile:
 
-    def __init__(self, files):
+    def __init__(self, files, color, textColor):
         self.files = files
         self.filesToSelect = []
+        self.color = color
+        self.textColor = textColor
 
     def open_window(self, app, file):
         self.filesToSelect = file
         self.selected = []
-        self.windowAsk = Toplevel(app, background="#242424")
+        self.windowAsk = Toplevel(app, background=self.color)
         self.windowAsk.geometry("500x250")
         self.add_widgets_to_window()
         
