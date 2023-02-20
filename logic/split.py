@@ -66,10 +66,24 @@ class Split:
                     for c in config:
                         if "-" in c:
                             t = c.split("-")
-                            for i in range(int(t[0]), int(t[1])+1):
-                                tmp.append(i)
+
+                            if int(t[0]) > int(t[1]):
+                                t1 = t[0]
+                                t[0] = int(t[1])
+                                t[1] = int(t1) 
+
+                                for i in range(t[0], t[1]+1):
+                                    tmp.append(i)
+
+                                else:
+                                    tmp.reverse() 
+                            else:                             
+                            
+                                for i in range(int(t[0]), int(t[1])+1):
+                                    tmp.append(i)                                
                         else:
                             tmp.append(int(c))
+                            
 #--------------add selected pages---------------------
                     fRead = PdfReader(self.files.allFiles[0])
                     fSave = PdfWriter()
