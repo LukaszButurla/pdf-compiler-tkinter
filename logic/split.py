@@ -63,8 +63,8 @@ class Split:
                         success = False
                     
                     if success:
-                            file.close()
-                            self.open_error_window("Dzielenie powiodło się")
+                        file.close()
+                        self.open_error_window("Dzielenie powiodło się")
 
                 case "multiple":
 
@@ -72,6 +72,11 @@ class Split:
                     number = 1
                     for i in range(int(amount)):
                         config = configList[i]
+                        if config.replace(" ", "") == "":
+                            self.open_error_window("Wypełnij wszystkie pola")
+                            success = False
+                            break
+
                         config = config.replace(" ", ",")
                         config = config.replace(";", ",")
                         config = config.split(",")
