@@ -28,6 +28,11 @@ class Split:
         self.errorWindow = Toplevel(self.app, background="#072d5e")
         self.errorWindow.geometry("350x150")
 
+        x = self.app.winfo_x()
+        y = self.app.winfo_y()
+        self.errorWindow.geometry("+%d+%d" %(x+200,y+200))
+        self.errorWindow.wm_transient(self.app)
+
         btnAccept = customtkinter.CTkButton(self.errorWindow, text = "Ok", command=self.close_error_window, width= 70)
         btnAccept.place(relx = 0.35, rely= 0.6)
 

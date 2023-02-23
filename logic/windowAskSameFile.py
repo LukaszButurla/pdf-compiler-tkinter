@@ -16,6 +16,11 @@ class WindowAskSameFile:
         self.windowAsk = Toplevel(app, background=self.color)
         self.windowAsk.geometry("500x250")
         self.add_widgets_to_window()
+
+        x = app.winfo_x()
+        y = app.winfo_y()
+        self.windowAsk.geometry("+%d+%d" %(x+200,y+200))
+        self.windowAsk.wm_transient(app)
         
 
     def add_widgets_to_window(self):
