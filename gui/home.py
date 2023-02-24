@@ -2,11 +2,11 @@ import customtkinter
 from tkinter import ttk, Scrollbar
 
 class HomePage:
-    def __init__(self, mainFrame, windowColor, secondColor, textColor, open_info_page):
-        self.create_widgets(mainFrame, windowColor, secondColor, textColor, open_info_page)
+    def __init__(self, mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page):
+        self.create_widgets(mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page)
         self.style_tree()
 
-    def create_widgets(self, mainFrame, windowColor, secondColor, textColor, open_info_page):
+    def create_widgets(self, mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page):
 
 #---------------------create frames----------------------------------
         self.homeFrame = customtkinter.CTkFrame(mainFrame, fg_color=windowColor)
@@ -40,7 +40,7 @@ class HomePage:
         buttonAdd = customtkinter.CTkButton(master=buttonsFrame, text="Dodaj", width=120, bg_color=windowColor)
         buttonAdd.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 20)
 
-        buttonEdit = customtkinter.CTkButton(master=buttonsFrame, text="Usuń", width=120, bg_color=windowColor)
+        buttonEdit = customtkinter.CTkButton(master=buttonsFrame, text="Usuń", width=120, bg_color=windowColor, command=open_edit_page)
         buttonEdit.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = 20)
 
         buttonCompile = customtkinter.CTkButton(master=buttonsFrame, text="Łącz", width=120, bg_color=windowColor)

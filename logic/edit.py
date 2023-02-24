@@ -2,12 +2,25 @@ import customtkinter
 from tkinter import Frame, ttk, END, Scrollbar
 
 class Edit:
-    def __init__(self, app, files, color, secondColor, textColor):
-        self.window = app
+    def __init__(self, mainFrame, files, color, secondColor, textColor, open_home_page):
         self.files = files
         self.color = color
         self.secondColor = secondColor
         self.textColor = textColor
+        self.create_widgets(mainFrame, open_home_page)
+
+    def create_widgets(self, mainFrame, open_home_page):
+#-------------------create frames-----------------------------
+        editFrame = customtkinter.CTkFrame(mainFrame, fg_color=self.color)
+
+#------------------configure frames--------------------------
+        editFrame.rowconfigure((0,1), weight=1)
+        editFrame.rowconfigure(1, weight=1)
+        editFrame.columnconfigure((0,1,2), weight=1)
+
+#------------------create widgets----------------------------
+        infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy", text_color=self.textColor)
+        infoLabel.grid(row = 0, column = 0, columnspan = 3, sticky = "NSWE")
 
     def open_edit_window(self):
         self.editWindow = Frame(self.window, background=self.color)
@@ -22,11 +35,10 @@ class Edit:
         buttonAgree = customtkinter.CTkButton(self.editWindow, text="Potwierdź", command=self.save_changes, bg_color=self.color)
         buttonAgree.place(relx=0.4, rely=0.85)
 
-        buttonDelete = customtkinter.CTkButton(self.editWindow, text="Usuń", command=self.delete_row, bg_color=self.color)
+        buttonDelete = customtkinter.CTkButton(self.editWindow, text="Usuń", bg_color=self.color)
         buttonDelete.place(relx=0.15, rely=0.85)
 
-        infoLabel = customtkinter.CTkLabel(self.editWindow, text="Wybierz pliki do usunięcia z listy", text_color=self.textColor)
-        infoLabel.place(relx=0.02, rely=0.03)
+        
 
         self.create_table()
 

@@ -2,7 +2,7 @@ from tkinter import Frame, Scrollbar, ttk
 import customtkinter
 from logic.compiler import Compiler
 from logic.split import Split
-from logic.edit import Edit
+# from logic.edit import Edit
 from logic.files import Files
 from gui.ui import Ui
 
@@ -18,6 +18,7 @@ class MainWindow:
         self.app = customtkinter.CTk()
         self.app.title("Łącznik pdf")
         self.app.geometry("800x400")
+        self.app.minsize(800, 450)
         self.app.resizable(True, True)    
              
         self.app.columnconfigure(0, weight=1)
