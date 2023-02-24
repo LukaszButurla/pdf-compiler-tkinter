@@ -2,7 +2,8 @@ import customtkinter
 from tkinter import ttk, Scrollbar
 
 class HomePage:
-    def __init__(self, mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page):
+    def __init__(self, mainFrame, files, windowColor, secondColor, textColor, open_info_page, open_edit_page):
+        self.files = files
         self.create_widgets(mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page)
         self.style_tree()
 
@@ -37,7 +38,7 @@ class HomePage:
 
 
 
-        buttonAdd = customtkinter.CTkButton(master=buttonsFrame, text="Dodaj", width=120, bg_color=windowColor)
+        buttonAdd = customtkinter.CTkButton(master=buttonsFrame, text="Dodaj", width=120, bg_color=windowColor, command=self.files.open_select_file_window)
         buttonAdd.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 20)
 
         buttonEdit = customtkinter.CTkButton(master=buttonsFrame, text="Usuń", width=120, bg_color=windowColor, command=open_edit_page)

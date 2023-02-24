@@ -4,14 +4,14 @@ from gui.info import InfoPage
 from gui.edit import EditPage
 
 class Ui:
-    def __init__(self, app):
+    def __init__(self, app, files):
         windowColor = "#072d5e"
         secondColor = "#0f4b99"
         textColor = "white"
         self.create_main_frame(app, windowColor)
-        self.homePage = HomePage(self.mainFrame, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page)
+        self.homePage = HomePage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page)
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
-        self.editPage = EditPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
+        self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
         app.mainloop()
 
     def create_main_frame(self, app, windowColor):
@@ -28,6 +28,7 @@ class Ui:
     def open_edit_page(self):
         self.homePage.homeFrame.grid_forget()
         self.editPage.editFrame.grid(row = 0, column = 0, sticky = "NSWE")
+        self.editPage.open_page()
         
 
     def open_home_page(self):
