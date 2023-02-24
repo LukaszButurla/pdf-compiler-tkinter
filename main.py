@@ -11,7 +11,8 @@ class MainWindow:
     def __init__(self):     
         self.open_app()
         self.files = Files()
-        self.ui = Ui(self.app, self.files)
+        self.compiler = Compiler(self.files)
+        self.ui = Ui(self.app, self.files, self.compiler.mergePdf)
         
 
     def open_app(self):
