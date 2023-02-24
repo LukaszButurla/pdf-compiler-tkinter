@@ -1,6 +1,7 @@
 import customtkinter
 from tkinter import Frame, ttk, END, Scrollbar
 from functools import partial
+from gui.table import Table
 
 class EditPage:
     def __init__(self, mainFrame, files, color, secondColor, textColor, open_home_page):
@@ -8,10 +9,12 @@ class EditPage:
         self.color = color
         self.secondColor = secondColor
         self.textColor = textColor
+        self.table = Table()
         self.create_widgets(mainFrame, open_home_page)
 
     def open_page(self):
-        self.add_files_to_tree()
+        self.fileToUpdate = self.files.allFiles.copy()
+        self.table.add_files_to_tree(self.fileToUpdate)
 
     def create_widgets(self, mainFrame, open_home_page):
 #-------------------create frames-----------------------------
@@ -30,41 +33,23 @@ class EditPage:
         infoLabel = customtkinter.CTkLabel(self.editFrame, text="Wybierz pliki do usunięcia z listy", text_color=self.textColor, anchor="w")
         infoLabel.grid(row = 0, column = 0, columnspan = 3, sticky = "NSWE", padx = 25, pady = 15)
 
-        buttonAgree = customtkinter.CTkButton(self.editFrame, text="Potwierdź", bg_color=self.color, command=partial(self.update_files, open_home_page))
+        buttonAgree = customtkinter.CTkButton(self.editFrame, text="Potwierdź", bg_color=self.color, command=partial(self.agree, open_home_page))
         buttonAgree.grid(row = 2, column = 0, sticky = "NSWE", padx = 25, pady = 15)
 
-        buttonDelete = customtkinter.CTkButton(self.editFrame, text="Usuń", bg_color=self.color, command = self.delete_row)
+        buttonDelete = customtkinter.CTkButton(self.editFrame, text="Usuń", bg_color=self.color, command = self.table.delete_row)
         buttonDelete.grid(row = 2, column = 1, sticky = "NSWE", padx = 25, pady = 15)
 
         buttonCancel = customtkinter.CTkButton(self.editFrame, text="Anuluj", command=open_home_page, bg_color=self.color)
         buttonCancel.grid(row = 2, column = 2, sticky = "NSWE", padx = 25, pady = 15)
 
-        self.table = ttk.Treeview(tableFrame, columns="Nazwa", show="headings")
-        self.table.heading("#1",text="Nazwa")
-        self.table.grid(row = 0, column = 0, sticky = "NSWE", padx = 25)
+        self.table.create_table(tableFrame)
+        self.table.table.grid(row = 0, column = 0, sticky = "NSWE", padx = 15)
 
-    def add_files_to_tree(self):
-        self.clear_tree()
-        for file in self.files.allFiles:
-            self.add_row_to_tree(file)
-    
-    def add_row_to_tree(self, value):
-        self.table.insert("", END, values=value.replace(" ", "_"))
-
-    def delete_row(self):
-        row = self.table.selection()
-        for r in row:
-            self.table.delete(r)
-
-    def clear_tree(self):
-        for i in self.table.get_children():
-            self.table.delete(i)
-
-    def update_files(self, close):
+    def agree(self, close):
         selectedFiles = []
-        for row in self.table.get_children():
-            selectedFiles.append(self.table.item(row)["values"][0])
-        self.files.allFiles = selectedFiles
+        for row in self.table.table.get_children():
+            selectedFiles.append(self.table.table.item(row)["values"][0])
+        self.files.update_files(selectedFiles)
         close()
 
 

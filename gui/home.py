@@ -1,9 +1,12 @@
 import customtkinter
 from tkinter import ttk, Scrollbar
+from gui.table import Table
+from functools import partial
 
 class HomePage:
     def __init__(self, mainFrame, files, windowColor, secondColor, textColor, open_info_page, open_edit_page):
         self.files = files
+        self.table = Table()
         self.create_widgets(mainFrame, windowColor, secondColor, textColor, open_info_page, open_edit_page)
         self.style_tree()
 
@@ -37,8 +40,7 @@ class HomePage:
         treeFrame.columnconfigure(0, weight=1)
 
 
-
-        buttonAdd = customtkinter.CTkButton(master=buttonsFrame, text="Dodaj", width=120, bg_color=windowColor, command=self.files.open_select_file_window)
+        buttonAdd = customtkinter.CTkButton(master=buttonsFrame, text="Dodaj", width=120, bg_color=windowColor, command=partial(self.files.open_select_file_window, self.table))
         buttonAdd.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 20)
 
         buttonEdit = customtkinter.CTkButton(master=buttonsFrame, text="Usuń", width=120, bg_color=windowColor, command=open_edit_page)
@@ -56,22 +58,13 @@ class HomePage:
         # filesListScroll = Scrollbar(filesLabelFrame)
         # filesListScroll.pack(side="right", fill="y")
 
+        self.table.create_table(treeFrame)
+        self.table.table.grid(row=0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
+
         labelListOfFiles = customtkinter.CTkLabel(filesLabelFrame, text="Lista plików:", justify="left", text_color="white", bg_color=windowColor, anchor="w", font = ("Arial", 15))
         labelListOfFiles.grid(row = 0, column = 0, sticky = "NSWE", padx =15)
 
-        self.treeListOfFiles = ttk.Treeview(treeFrame, columns="File", show="headings", selectmode="none")
-        self.treeListOfFiles.heading("#1", text="Ścieżka do pliku")
-        self.treeListOfFiles.column("#1", minwidth=940)
-        self.treeListOfFiles.grid(row=0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
-
-    #     filesListScroll.config(command=self.treeListOfFiles.yview)
-    #     # self.infoPage = InfoPage(self.app, windowColor, secondColor, textColor)
-    #     # self.files = Files(self.app, self.treeListOfFiles, labelListOfFiles, windowColor, textColor)
-    #     # self.split = Split(self.app, self.files, windowColor, secondColor, textColor)
-    #     # self.compiler = Compiler(self.files)
-    #     # self.edit = Edit(self.app, self.files, windowColor, secondColor, textColor)
-
-
+    
 
     def style_tree(self):
         s = ttk.Style()

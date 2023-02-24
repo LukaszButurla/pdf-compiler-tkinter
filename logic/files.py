@@ -8,7 +8,7 @@ class Files:
         # self.windowAskSameFile = WindowAskSameFile(self, color, textColor)
 
 
-    def open_select_file_window(self):
+    def open_select_file_window(self, table):
         selectedFiles = fd.askopenfilenames(filetypes=[("PDF", ".pdf")])
         sameFiles = []
         for file in selectedFiles:
@@ -16,26 +16,11 @@ class Files:
                 self.allFiles.append(file)
             else:
                 sameFiles.append(file) 
+        table.add_files_to_tree(self.allFiles)
 
-        if len(sameFiles) > 0:                
-            self.windowAskSameFile.open_window(self.window, sameFiles)
-
-        # self.add_files_to_tree()
-
-
-    # def add_files_to_tree(self):
-    #     self.clear_tree()
-    #     for file in self.allFiles:
-    #         self.add_row_to_tree(file)
-    #     self.filesLabel.configure(text = "Lista plików: {}".format(len(self.allFiles)))
+        # if len(sameFiles) > 0:                
+            # self.windowAskSameFile.open_window(self.window, sameFiles)
 
 
-
-    # def clear_tree(self):
-    #     for i in self.tree.get_children():
-    #         self.tree.delete(i)
-
-    # def add_file_from_window(self, file):
-    #     for f in file:
-    #         self.allFiles.append(f)
-    #     self.add_files_to_tree()
+    def update_files(self, files):
+        self.allFiles = files.copy()
