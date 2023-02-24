@@ -10,7 +10,8 @@ class MainWindow:
     
     def __init__(self):     
         self.open_app()
-        self.ui = Ui(self.app)
+        self.files = Files()
+        self.ui = Ui(self.app, self.files)
         
 
     def open_app(self):

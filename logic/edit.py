@@ -2,7 +2,7 @@ import customtkinter
 from tkinter import Frame, ttk, END, Scrollbar
 
 class Edit:
-    def __init__(self, mainFrame, files, color, secondColor, textColor, open_home_page):
+    def __init__(self, files):
         self.files = files
 
 
