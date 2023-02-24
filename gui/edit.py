@@ -17,7 +17,7 @@ class EditPage:
 
 #------------------configure frames--------------------------
         self.editFrame.rowconfigure((2), weight=1)
-        self.editFrame.rowconfigure((1), weight=3)
+        self.editFrame.rowconfigure((1), weight=7)
         self.editFrame.columnconfigure((0,1,2), weight=1)
         tableFrame.rowconfigure(0, weight=1)
         tableFrame.columnconfigure(0, weight=1)
