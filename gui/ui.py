@@ -2,6 +2,7 @@ import customtkinter
 from gui.home import HomePage
 from gui.info import InfoPage
 from gui.edit import EditPage
+from gui.splitPage import SplitPage
 
 class Ui:
     def __init__(self, app, files, compiler):
@@ -9,9 +10,10 @@ class Ui:
         secondColor = "#0f4b99"
         textColor = "white"
         self.create_main_frame(app, windowColor)
-        self.homePage = HomePage(self.mainFrame, files, compiler, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page)
+        self.homePage = HomePage(self.mainFrame, files, compiler, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page, self.open_split_page)
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
         self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
+        self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
         app.mainloop()
 
     def create_main_frame(self, app, windowColor):
@@ -29,6 +31,10 @@ class Ui:
         self.homePage.homeFrame.grid_forget()
         self.editPage.editFrame.grid(row = 0, column = 0, sticky = "NSWE")
         self.editPage.open_page()
+
+    def open_split_page(self):
+        self.homePage.homeFrame.grid_forget()
+        self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
         
 
     def open_home_page(self):
