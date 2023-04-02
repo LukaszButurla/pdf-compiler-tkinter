@@ -38,10 +38,10 @@ class SplitPage:
 
         selectionMode = StringVar()
 
-        oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", variable=selectionMode, text_color=self.textColor)
+        oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
         oneCheck.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = (0, 15))
 
-        multipleCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel niestandardowo", value="normal", variable=selectionMode, text_color=self.textColor)
+        multipleCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel niestandardowo", value="normal", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
         multipleCheck.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = (0, 15))
 
         self.amountInfoLabel = customtkinter.CTkLabel(leftFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor, anchor="w")
@@ -49,7 +49,7 @@ class SplitPage:
 
         self.amountOfFilesSlider = customtkinter.CTkSlider(leftFrame, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
         self.amountOfFilesSlider.grid(row = 2, column = 0, columnspan = 2, sticky = "WE", padx = 15)
-        # self.amountOfFilesSlider.bind("<ButtonRelease-1>", self.update_slider)
+        self.amountOfFilesSlider.bind("<ButtonRelease-1>", self.update_slider)
 
         self.newFilesList = customtkinter.CTkScrollableFrame(rightFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
@@ -73,3 +73,38 @@ class SplitPage:
 
             selectedFilesText = customtkinter.CTkEntry(box, width=250, height=50)
             selectedFilesText.grid(row = 0, column = 1, columnspan = 5, sticky="NSWE", pady=15, padx = 15)
+            
+        self.update_frame(2)
+        self.amountOfFilesSlider.set(2)
+        self.disable_enable_widgets("disabled")
+        oneCheck.select()
+        
+    def disable_enable_widgets(self, stat):
+        
+        if stat != "disabled" and stat != "normal":
+            stat = stat.get()
+
+        if stat == "disabled":
+            self.mode = "one"
+        elif stat == "normal":
+            self.mode = "multiple"
+
+        self.amountInfoLabel.configure(state = stat)
+        self.amountOfFilesSlider.configure(state = stat)
+        for child in self.newFilesList.winfo_children():
+            for c in child.winfo_children():
+                c.configure(state = stat)
+            
+    def update_frame(self, number):
+        l = 0
+        for i in self.newFilesList.winfo_children():
+            l += 1
+            if l <= number:
+                i.pack(fill="x")
+            else:
+                i.pack_forget()
+                
+    def update_slider(self, event):
+        amount = self.amountOfFilesSlider.get()
+        # self.amountOfFilesLabel.configure(text = str(amount)[:-2])
+        self.update_frame(amount)

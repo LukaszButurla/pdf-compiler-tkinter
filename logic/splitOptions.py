@@ -51,7 +51,6 @@ class SplitOptions:
         btnAccept = customtkinter.CTkButton(self.settingsFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.place(relx = 0.55, rely = 0.9)
         
-        self.update_frame(2)
 
         for i in range(self.amountOfFilesSlider):
             box = Frame(self.newFilesList, bg=self.secondColor, height=100, highlightbackground="black", highlightthickness=1)
@@ -63,6 +62,7 @@ class SplitOptions:
             selectedFilesText = customtkinter.CTkEntry(box, width=250, height=30)
             selectedFilesText.place(relx = 0.2, rely = 0.3)
 
+        self.update_frame(2)
         self.amountOfFilesSlider.set(2)
         self.disable_enable_widgets("disabled")
         oneCheck.select()
