@@ -59,13 +59,17 @@ class SplitPage:
 
         btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź")
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
+        
 
         for i in range(amountOfPages):
-            box = customtkinter.CTkFrame(self.newFilesList, fg_color=self.secondColor, height=100, border_color="black", border_width=1)
-            # box.pack(fill="x")
+            box = customtkinter.CTkFrame(self.newFilesList, fg_color=self.secondColor, height=50, border_color="black", border_width=1)
+            box.pack(fill="x")
+            
+            box.columnconfigure((1,2,3,4,5), weight=1)
+            box.rowconfigure(0, weight=1)
 
-            numberLabel = customtkinter.CTkLabel(box, text = i+1, font=("Arial", 18), text_color=self.textColor)
-            # numberLabel.place(relx = 0.05, rely = 0.3)
+            numberLabel = customtkinter.CTkLabel(box, text = i+1, font=("Arial", 18), width=50, text_color=self.textColor)
+            numberLabel.grid(row = 0, column = 0, sticky="NSWE", pady=15, padx = 15)
 
-            selectedFilesText = customtkinter.CTkEntry(box, width=250, height=30)
-            # selectedFilesText.place(relx = 0.2, rely = 0.3)
+            selectedFilesText = customtkinter.CTkEntry(box, width=250, height=50)
+            selectedFilesText.grid(row = 0, column = 1, columnspan = 5, sticky="NSWE", pady=15, padx = 15)
