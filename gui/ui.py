@@ -6,6 +6,7 @@ from gui.splitPage import SplitPage
 
 class Ui:
     def __init__(self, app, files, compiler):
+        self.files = files
         windowColor = "#072d5e"
         secondColor = "#0f4b99"
         textColor = "white"
@@ -33,9 +34,10 @@ class Ui:
         self.editPage.open_page()
 
     def open_split_page(self):
-        self.splitPage.on_open()
-        self.homePage.homeFrame.grid_forget()
-        self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
+        if len(self.files.allFiles) == 1:
+            self.splitPage.on_open()
+            self.homePage.homeFrame.grid_forget()
+            self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
         
 
     def open_home_page(self):
