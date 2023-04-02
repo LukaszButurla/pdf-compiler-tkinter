@@ -13,7 +13,7 @@ class Ui:
         self.homePage = HomePage(self.mainFrame, files, compiler, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page, self.open_split_page)
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
         self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
-        self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
+        self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page, app)
         app.mainloop()
 
     def create_main_frame(self, app, windowColor):
@@ -41,6 +41,7 @@ class Ui:
     def open_home_page(self):
         self.infoPage.infoFrame.grid_forget()
         self.editPage.editFrame.grid_forget()
+        self.splitPage.splitFrame.grid_forget()
         self.homePage.homeFrame.grid(sticky = "NSWE")
         self.homePage.table.add_files_to_tree(self.homePage.files.allFiles)
 

@@ -2,15 +2,18 @@ import customtkinter
 from tkinter import StringVar
 from functools import partial
 from PyPDF2 import PdfReader
+from logic.split import Split
 
 class SplitPage:
 
-    def __init__(self, frame, files, color, secondColor, textColor, open_home_page):
+    def __init__(self, frame, files, color, secondColor, textColor, open_home_page, app):
         self.files = files
         self.windowColor = color
         self.textColor = textColor
         self.secondColor = secondColor
-        self.create_widgets(frame)
+        self.split = Split(files, app)
+        self.create_widgets(frame, open_home_page)
+        self.mode = "one"
         
     def on_open(self):
         file = self.files.allFiles[0]
@@ -24,7 +27,7 @@ class SplitPage:
         self.create_boxes(pages)
         self.update_frame(1)
 
-    def create_widgets(self, frame):
+    def create_widgets(self, frame, open_home_page):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
         self.settingsFrame = customtkinter.CTkFrame(self.splitFrame)
 
@@ -67,16 +70,31 @@ class SplitPage:
         self.newFilesList = customtkinter.CTkScrollableFrame(rightFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
 
-        btnCancel = customtkinter.CTkButton(self.splitFrame, text = "Anuluj")
+        btnCancel = customtkinter.CTkButton(self.splitFrame, text = "Anuluj", command=open_home_page)
         btnCancel.grid(row = 7, column = 0, sticky = "NSWE", padx = 100, pady = 15)
 
-        btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź")
+        btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
                     
         self.update_frame(1)
         self.amountOfFilesSlider.set(1)
         self.disable_enable_widgets("disabled")
         oneCheck.select()
+        
+    def split_click(self):
+    
+        try:
+            configList = []
+
+            for child in self.newFilesList.winfo_children():
+                for c in child.winfo_children():
+                    if isinstance(c, customtkinter.CTkEntry):
+                        configList.append(c.get())
+
+            amount = self.amountOfFilesSlider.get()
+            self.split_file(self.mode, amount, configList)
+        except:
+            self.split.open_error_window("Coś poszło nie tak")
         
     def create_boxes(self, amountOfPages):
         

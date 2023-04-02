@@ -5,23 +5,23 @@ from PyPDF2 import PdfReader, PdfWriter
 from os import path
 
 class Split:
-    def __init__(self, app, files, windowColor, secondColor, textColor):
+    def __init__(self, files, app):
         self.files = files
         self.app = app
-        self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor, self.split_file, self.open_error_window)
+        # self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor, self.split_file, self.open_error_window)
 
-    def open_split_file(self):
-        if len(self.files.allFiles) == 1:
-            file = open(self.files.allFiles[0], "rb")
-            read = PdfReader(file)
-            pages = len(read.pages)
+    # def open_split_file(self):
+    #     if len(self.files.allFiles) == 1:
+    #         file = open(self.files.allFiles[0], "rb")
+    #         read = PdfReader(file)
+    #         pages = len(read.pages)
 
-            if pages >= 2:
-                self.splitOptions.open_settings(pages, self.files.allFiles[0])
-            else:
-                self.open_error_window("Wybrany plik ma tylko 1 stronę")
-        else:
-            self.open_error_window("Wybierz tylko jeden plik")
+    #         if pages >= 2:
+    #             self.splitOptions.open_settings(pages, self.files.allFiles[0])
+    #         else:
+    #             self.open_error_window("Wybrany plik ma tylko 1 stronę")
+    #     else:
+    #         self.open_error_window("Wybierz tylko jeden plik")
 
     def open_error_window(self, text):
 
