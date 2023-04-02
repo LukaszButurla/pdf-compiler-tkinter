@@ -33,6 +33,7 @@ class Ui:
         self.editPage.open_page()
 
     def open_split_page(self):
+        self.splitPage.on_open()
         self.homePage.homeFrame.grid_forget()
         self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
         

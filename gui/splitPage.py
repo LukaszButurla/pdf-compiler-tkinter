@@ -1,6 +1,7 @@
 import customtkinter
 from tkinter import StringVar
 from functools import partial
+from PyPDF2 import PdfReader
 
 class SplitPage:
 
@@ -10,6 +11,17 @@ class SplitPage:
         self.textColor = textColor
         self.secondColor = secondColor
         self.create_widgets(frame)
+        
+    def on_open(self):
+        file = self.files.allFiles[0]
+        self.selectedFileLabel.configure(text="Wybrany plik: {}".format(file))
+        
+        fileRead = open(self.files.allFiles[0], "rb")
+        read = PdfReader(fileRead)
+        pages = len(read.pages)
+        
+        self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
+        self.create_boxes(pages)
 
     def create_widgets(self, frame):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
@@ -33,8 +45,8 @@ class SplitPage:
 
 
         amountOfPages = 4
-        selectedFileLabel = customtkinter.CTkLabel(self.splitFrame, text = "Wybrany plik:", text_color=self.textColor, anchor="w")
-        selectedFileLabel.grid(row = 0, column = 0, columnspan = 2, sticky = "NSWE", padx = 15, pady = 5)
+        self.selectedFileLabel = customtkinter.CTkLabel(self.splitFrame, text = "Wybrany plik:", text_color=self.textColor, anchor="w")
+        self.selectedFileLabel.grid(row = 0, column = 0, columnspan = 2, sticky = "NSWE", padx = 15, pady = 5)
 
         selectionMode = StringVar()
 
@@ -44,7 +56,7 @@ class SplitPage:
         multipleCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel niestandardowo", value="normal", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
         multipleCheck.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = (0, 15))
 
-        self.amountInfoLabel = customtkinter.CTkLabel(leftFrame, text = "Ile plików chcesz stworzyć:", text_color=self.textColor, anchor="w")
+        self.amountInfoLabel = customtkinter.CTkLabel(leftFrame, text = "Ile plików chcesz stworzyć: {}".format(2), text_color=self.textColor, anchor="w")
         self.amountInfoLabel.grid(row = 1, column = 0, columnspan = 2, sticky = "NSWE", padx = 15)
 
         self.amountOfFilesSlider = customtkinter.CTkSlider(leftFrame, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
@@ -59,8 +71,14 @@ class SplitPage:
 
         btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź")
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
+                    
+        self.update_frame(2)
+        self.amountOfFilesSlider.set(2)
+        self.disable_enable_widgets("disabled")
+        oneCheck.select()
         
-
+    def create_boxes(self, amountOfPages):
+        
         for i in range(amountOfPages):
             box = customtkinter.CTkFrame(self.newFilesList, fg_color=self.secondColor, height=50, border_color="black", border_width=1)
             box.pack(fill="x")
@@ -73,11 +91,6 @@ class SplitPage:
 
             selectedFilesText = customtkinter.CTkEntry(box, width=250, height=50)
             selectedFilesText.grid(row = 0, column = 1, columnspan = 5, sticky="NSWE", pady=15, padx = 15)
-            
-        self.update_frame(2)
-        self.amountOfFilesSlider.set(2)
-        self.disable_enable_widgets("disabled")
-        oneCheck.select()
         
     def disable_enable_widgets(self, stat):
         
@@ -106,5 +119,5 @@ class SplitPage:
                 
     def update_slider(self, event):
         amount = self.amountOfFilesSlider.get()
-        # self.amountOfFilesLabel.configure(text = str(amount)[:-2])
+        self.amountInfoLabel.configure(text = "Ile plików chcesz stworzyć: {}".format(str(amount)[:-2]))
         self.update_frame(amount)
