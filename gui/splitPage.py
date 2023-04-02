@@ -92,9 +92,10 @@ class SplitPage:
                         configList.append(c.get())
 
             amount = self.amountOfFilesSlider.get()
-            self.split_file(self.mode, amount, configList)
-        except:
+            self.split.split_file(self.mode, amount, configList)
+        except Exception as e:
             self.split.open_error_window("Coś poszło nie tak")
+            print(e)
         
     def create_boxes(self, amountOfPages):
         
