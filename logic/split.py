@@ -23,24 +23,24 @@ class Split:
     #     else:
     #         self.open_error_window("Wybierz tylko jeden plik")
 
-    def open_error_window(self, text):
+    # def open_error_window(self, text):
 
-        self.errorWindow = Toplevel(self.app, background="#072d5e")
-        self.errorWindow.geometry("350x150")
+    #     self.errorWindow = Toplevel(self.app, background="#072d5e")
+    #     self.errorWindow.geometry("350x150")
 
-        x = self.app.winfo_x()
-        y = self.app.winfo_y()
-        self.errorWindow.geometry("+%d+%d" %(x+200,y+200))
-        self.errorWindow.wm_transient(self.app)
+    #     x = self.app.winfo_x()
+    #     y = self.app.winfo_y()
+    #     self.errorWindow.geometry("+%d+%d" %(x+200,y+200))
+    #     self.errorWindow.wm_transient(self.app)
 
-        btnAccept = customtkinter.CTkButton(self.errorWindow, text = "Ok", command=self.close_error_window, width= 70)
-        btnAccept.place(relx = 0.35, rely= 0.6)
+    #     btnAccept = customtkinter.CTkButton(self.errorWindow, text = "Ok", command=self.close_error_window, width= 70)
+    #     btnAccept.place(relx = 0.35, rely= 0.6)
 
-        labelInfo = customtkinter.CTkLabel(self.errorWindow, text = text, text_color="white", width=250, font=("Arial", 14))
-        labelInfo.place(relx = 0.05, rely = 0.2)
+    #     labelInfo = customtkinter.CTkLabel(self.errorWindow, text = text, text_color="white", width=250, font=("Arial", 14))
+    #     labelInfo.place(relx = 0.05, rely = 0.2)
 
-    def close_error_window(self):
-        self.errorWindow.destroy()
+    # def close_error_window(self):
+    #     self.errorWindow.destroy()
 
     def split_file(self, mode, amount, configList):
 

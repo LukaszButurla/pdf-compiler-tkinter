@@ -3,6 +3,7 @@ from gui.home import HomePage
 from gui.info import InfoPage
 from gui.edit import EditPage
 from gui.splitPage import SplitPage
+from gui.errorWindow import ErrorWindow
 
 class Ui:
     def __init__(self, app, files, compiler):
@@ -15,6 +16,7 @@ class Ui:
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
         self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
         self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page, app)
+        self.errorWindow = ErrorWindow(app, windowColor, secondColor, textColor)
         app.mainloop()
 
     def create_main_frame(self, app, windowColor):
@@ -38,6 +40,8 @@ class Ui:
             self.splitPage.on_open()
             self.homePage.homeFrame.grid_forget()
             self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
+        else:
+            self.errorWindow.open_error_window("Wybierz dokładnie 1 plik")
         
 
     def open_home_page(self):
