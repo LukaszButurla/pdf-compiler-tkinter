@@ -5,9 +5,10 @@ from PyPDF2 import PdfReader, PdfWriter
 from os import path
 
 class Split:
-    def __init__(self, files, app):
+    def __init__(self, files, app, open_error_window):
         self.files = files
         self.app = app
+        self.open_error_window = open_error_window
         # self.splitOptions = SplitOptions(self.app, windowColor, secondColor, textColor, self.split_file, self.open_error_window)
 
     # def open_split_file(self):

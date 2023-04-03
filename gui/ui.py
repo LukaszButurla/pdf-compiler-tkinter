@@ -15,8 +15,8 @@ class Ui:
         self.homePage = HomePage(self.mainFrame, files, compiler, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page, self.open_split_page)
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
         self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
-        self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page, app)
         self.errorWindow = ErrorWindow(app, windowColor, secondColor, textColor)
+        self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page, app, self.errorWindow.open_error_window)
         app.mainloop()
 
     def create_main_frame(self, app, windowColor):

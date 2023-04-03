@@ -6,12 +6,12 @@ from logic.split import Split
 
 class SplitPage:
 
-    def __init__(self, frame, files, color, secondColor, textColor, open_home_page, app):
+    def __init__(self, frame, files, color, secondColor, textColor, open_home_page, app, open_error_window):
         self.files = files
         self.windowColor = color
         self.textColor = textColor
         self.secondColor = secondColor
-        self.split = Split(files, app)
+        self.split = Split(files, app, open_error_window)
         self.create_widgets(frame, open_home_page)
         self.mode = "one"
         
