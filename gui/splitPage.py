@@ -60,7 +60,7 @@ class SplitPage:
         multipleCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel niestandardowo", value="normal", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
         multipleCheck.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = (0, 15))
 
-        self.amountInfoLabel = customtkinter.CTkLabel(leftFrame, text = "Ile plików chcesz stworzyć: {}".format(2), text_color=self.textColor, anchor="w")
+        self.amountInfoLabel = customtkinter.CTkLabel(leftFrame, text = "Ile plików chcesz stworzyć: {}".format(1), text_color=self.textColor, anchor="w")
         self.amountInfoLabel.grid(row = 1, column = 0, columnspan = 2, sticky = "NSWE", padx = 15)
 
         self.amountOfFilesSlider = customtkinter.CTkSlider(leftFrame, width=250, from_=1, to=amountOfPages, number_of_steps=amountOfPages - 1)
