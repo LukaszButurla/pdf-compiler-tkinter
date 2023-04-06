@@ -4,13 +4,13 @@ from functools import partial
 
 class WindowAskSameFile:
 
-    def __init__(self, files, color, textColor):
+    def __init__(self, files):
         self.files = files
         self.filesToSelect = []
-        self.color = color
-        self.textColor = textColor
+        self.color = "#072d5e"
+        self.textColor = "white"
 
-    def open_window(self, app, file):
+    def open_window(self, app, file, table):
         self.filesToSelect = file
         self.selected = []
         self.windowAsk = Toplevel(app, background=self.color)
