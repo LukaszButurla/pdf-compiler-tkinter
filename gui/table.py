@@ -9,6 +9,7 @@ class Table:
         self.table.heading("#1",text="Ścieżka do pliku")
 
     def add_files_to_tree(self, files):
+        self.filesToEdit = files
         self.clear_tree()
         for file in files:
             self.add_row_to_tree(file)
@@ -19,7 +20,9 @@ class Table:
     def delete_row(self):
         row = self.table.selection()
         for r in row:
+            index = self.table.index(r)
             self.table.delete(r)
+            del self.filesToEdit[index]
 
     def clear_tree(self):
         for i in self.table.get_children():

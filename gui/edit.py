@@ -47,8 +47,8 @@ class EditPage:
 
     def agree(self, close):
         selectedFiles = []
-        for row in self.table.table.get_children():
-            selectedFiles.append(self.table.table.item(row)["values"][0])
+        for file in self.table.filesToEdit:
+            selectedFiles.append(file)
         self.files.update_files(selectedFiles)
         close()
 
