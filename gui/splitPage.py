@@ -1,5 +1,5 @@
 import customtkinter
-from tkinter import StringVar
+from tkinter import StringVar, END
 from functools import partial
 from PyPDF2 import PdfReader
 from logic.split import Split
@@ -25,7 +25,8 @@ class SplitPage:
         
         self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
         self.create_boxes(pages)
-        self.update_frame(1)
+        self.reset_values()
+        # self.update_frame(1)
 
     def create_widgets(self, frame, open_home_page):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
@@ -54,8 +55,8 @@ class SplitPage:
 
         selectionMode = StringVar()
 
-        oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
-        oneCheck.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = (0, 15))
+        self.oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
+        self.oneCheck.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = (0, 15))
 
         multipleCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel niestandardowo", value="normal", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
         multipleCheck.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = (0, 15))
@@ -69,6 +70,7 @@ class SplitPage:
 
         self.newFilesList = customtkinter.CTkScrollableFrame(rightFrame, width=350, height=275, fg_color=self.windowColor)
         self.newFilesList.grid(row = 0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
+        
 
         btnCancel = customtkinter.CTkButton(self.splitFrame, text = "Anuluj", command=open_home_page)
         btnCancel.grid(row = 7, column = 0, sticky = "NSWE", padx = 100, pady = 15)
@@ -76,10 +78,10 @@ class SplitPage:
         btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
                     
-        self.update_frame(1)
-        self.amountOfFilesSlider.set(1)
-        self.disable_enable_widgets("disabled")
-        oneCheck.select()
+        # self.update_frame(1)
+        # self.amountOfFilesSlider.set(1)
+        # self.disable_enable_widgets("disabled")
+        # self.oneCheck.select()
         
     def split_click(self):
     
@@ -135,9 +137,27 @@ class SplitPage:
             if l <= number:
                 i.pack(fill="x")
             else:
-                i.pack_forget()
+                i.pack_forget()                
+                for child in i.winfo_children():
+                    if isinstance(child, customtkinter.CTkEntry):
+                        child.delete(0, END)
+                        
                 
     def update_slider(self, event):
         amount = self.amountOfFilesSlider.get()
         self.amountInfoLabel.configure(text = "Ile plików chcesz stworzyć: {}".format(str(amount)[:-2]))
         self.update_frame(amount)
+        
+    def reset_values(self):
+        for i in self.newFilesList.winfo_children():
+            for child in i.winfo_children():
+                if isinstance(child, customtkinter.CTkEntry):
+                    child.delete(0, END)
+                    
+        self.disable_enable_widgets("disabled")
+        self.oneCheck.select()
+        self.amountOfFilesSlider.set(1)
+        self.amountInfoLabel.configure(text = "Ile plików chcesz stworzyć: {}".format(1))
+        self.update_frame(1)
+        
+                        
