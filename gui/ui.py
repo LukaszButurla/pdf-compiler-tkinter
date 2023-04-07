@@ -50,6 +50,3 @@ class Ui:
         self.splitPage.splitFrame.grid_forget()
         self.homePage.homeFrame.grid(sticky = "NSWE")
         self.homePage.table.add_files_to_tree(self.homePage.files.allFiles)
-
-    # def open_home_page(self):
-    #     self.mainFrame = 
