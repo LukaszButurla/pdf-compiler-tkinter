@@ -26,7 +26,6 @@ class SplitPage:
         self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
         self.create_boxes(pages)
         self.reset_values()
-        # self.update_frame(1)
 
     def create_widgets(self, frame, open_home_page):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
@@ -78,10 +77,6 @@ class SplitPage:
         btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
                     
-        # self.update_frame(1)
-        # self.amountOfFilesSlider.set(1)
-        # self.disable_enable_widgets("disabled")
-        # self.oneCheck.select()
         
     def split_click(self):
     

@@ -1,6 +1,4 @@
-from tkinter import Frame
 import customtkinter
-from tkinter import RIGHT
 
 class InfoPage:
 
