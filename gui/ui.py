@@ -37,9 +37,14 @@ class Ui:
 
     def open_split_page(self):
         if len(self.files.allFiles) == 1:
-            self.splitPage.on_open()
-            self.homePage.homeFrame.grid_forget()
-            self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
+                        
+            correct = self.splitPage.on_open()
+            
+            if not correct:
+                self.errorWindow.open_error_window("Wybrany plik ma tylko 1 stronę")
+            elif correct:            
+                self.homePage.homeFrame.grid_forget()
+                self.splitPage.splitFrame.grid(row= 0, column = 0, sticky = "NSWE")
         else:
             self.errorWindow.open_error_window("Wybierz dokładnie 1 plik")
         

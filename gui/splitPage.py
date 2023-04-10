@@ -22,11 +22,13 @@ class SplitPage:
         fileRead = open(self.files.allFiles[0], "rb")
         read = PdfReader(fileRead)
         pages = len(read.pages)
-        
-        self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
-        self.create_boxes(pages)
-        self.reset_values()
-        # self.update_frame(1)
+        if pages <= 1:
+            return False
+        else:       
+            self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
+            self.create_boxes(pages)
+            self.reset_values()
+            return True
 
     def create_widgets(self, frame, open_home_page):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
