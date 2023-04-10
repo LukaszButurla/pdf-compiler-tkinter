@@ -1,6 +1,4 @@
-from tkinter import Frame
 import customtkinter
-from tkinter import RIGHT
 
 class InfoPage:
 
@@ -53,7 +51,7 @@ class InfoPage:
 
 
         labelVersion = customtkinter.CTkLabel(boxFrame,
-                                              text="Wersja programu: 1.3",
+                                              text="Wersja programu: 1.4",
                                               font=("Arial", 12),
                                               text_color=self.textColor,
                                               anchor="e")

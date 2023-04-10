@@ -22,6 +22,7 @@ class SplitPage:
         fileRead = open(self.files.allFiles[0], "rb")
         read = PdfReader(fileRead)
         pages = len(read.pages)
+        
         if pages <= 1:
             return False
         else:       
@@ -54,7 +55,6 @@ class SplitPage:
         amountOfPages = 4
         self.selectedFileLabel = customtkinter.CTkLabel(self.splitFrame, text = "Wybrany plik:", text_color=self.textColor, anchor="w")
         self.selectedFileLabel.grid(row = 0, column = 0, columnspan = 2, sticky = "NSWE", padx = 15, pady = 5)
-
         selectionMode = StringVar()
 
         self.oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
@@ -80,10 +80,6 @@ class SplitPage:
         btnAccept = customtkinter.CTkButton(self.splitFrame, text = "Potwierdź", command=self.split_click)
         btnAccept.grid(row = 7, column = 1, sticky = "NSWE", padx = 100, pady = 15)
                     
-        # self.update_frame(1)
-        # self.amountOfFilesSlider.set(1)
-        # self.disable_enable_widgets("disabled")
-        # self.oneCheck.select()
         
     def split_click(self):
     

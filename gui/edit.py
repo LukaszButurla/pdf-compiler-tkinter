@@ -1,5 +1,4 @@
 import customtkinter
-from tkinter import Frame, ttk, END, Scrollbar
 from functools import partial
 from gui.table import Table
 

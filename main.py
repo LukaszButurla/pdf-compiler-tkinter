@@ -1,7 +1,5 @@
-from tkinter import Frame, Scrollbar, ttk
 import customtkinter
 from logic.compiler import Compiler
-# from logic.edit import Edit
 from logic.files import Files
 from gui.ui import Ui
 

@@ -1,5 +1,5 @@
 import customtkinter
-from tkinter import ttk, Scrollbar
+from tkinter import ttk
 from gui.table import Table
 from functools import partial
 
@@ -54,9 +54,6 @@ class HomePage:
 
         buttonInfo = customtkinter.CTkButton(master=buttonsFrame, text="O programie", width=120, bg_color=windowColor, command=open_info_page)
         buttonInfo.grid(row = 0, column = 4, sticky = "NSWE", padx = 15, pady = 20)
-
-        # filesListScroll = Scrollbar(filesLabelFrame)
-        # filesListScroll.pack(side="right", fill="y")
 
         self.table.create_table(treeFrame)
         self.table.table.grid(row=0, column = 0, sticky = "NSWE", padx = 15, pady = 15)
