@@ -1,5 +1,4 @@
 import customtkinter
-from logic.compiler import Compiler
 from logic.files import Files
 from gui.ui import Ui
 
@@ -8,8 +7,7 @@ class MainWindow:
     def __init__(self):     
         self.open_app()
         self.files = Files(self.app)
-        self.compiler = Compiler(self.files)
-        self.ui = Ui(self.app, self.files, self.compiler.mergePdf)
+        self.ui = Ui(self.app, self.files)
         
 
     def open_app(self):
