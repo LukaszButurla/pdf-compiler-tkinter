@@ -11,19 +11,23 @@ class Compiler:
         pdfMerger = PyPDF2.PdfMerger()
 
         try:
-            for pdf in self.files.allFiles:
-                pdfMerger.append(pdf)
+            if len(self.files.allFiles) >= 2:            
+                for pdf in self.files.allFiles:
+                    pdfMerger.append(pdf)
 
-            saveDir = fd.asksaveasfilename(filetypes=[("PDF", ".pdf")], title="Zapisz")
+                saveDir = fd.asksaveasfilename(filetypes=[("PDF", ".pdf")], title="Zapisz")
 
-            if saveDir != "":
-                if not saveDir.endswith(".pdf"):
-                    saveDir = "{}.pdf".format(saveDir)
+                if saveDir != "":
+                    if not saveDir.endswith(".pdf"):
+                        saveDir = "{}.pdf".format(saveDir)
 
-                with open(saveDir, "wb") as fSave:
-                    pdfMerger.write(fSave)
+                    with open(saveDir, "wb") as fSave:
+                        pdfMerger.write(fSave)
+                
+                    self.errorWindow.open_error_window("Łączenie przebiegło pomyślnie")
             
-            self.errorWindow.open_error_window("Łączenie przebiegło pomyślnie")
+            elif len(self.files.allFiles) < 2:
+                self.errorWindow.open_error_window("Wybierz minimum 2 pliki") 
                 
             
         except:
