@@ -6,16 +6,16 @@ from gui.splitPage import SplitPage
 from gui.errorWindow import ErrorWindow
 
 class Ui:
-    def __init__(self, app, files, compiler):
+    def __init__(self, app, files):
         self.files = files
         windowColor = "#072d5e"
         secondColor = "#0f4b99"
         textColor = "white"
         self.create_main_frame(app, windowColor)
-        self.homePage = HomePage(self.mainFrame, files, compiler, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page, self.open_split_page)
+        self.errorWindow = ErrorWindow(app, windowColor, secondColor, textColor)
+        self.homePage = HomePage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_info_page, self.open_edit_page, self.open_split_page, self.errorWindow)
         self.infoPage = InfoPage(self.mainFrame, windowColor, secondColor, textColor, self.open_home_page)
         self.editPage = EditPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page)
-        self.errorWindow = ErrorWindow(app, windowColor, secondColor, textColor)
         self.splitPage = SplitPage(self.mainFrame, files, windowColor, secondColor, textColor, self.open_home_page, app, self.errorWindow.open_error_window)
         app.mainloop()
 

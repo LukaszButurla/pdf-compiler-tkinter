@@ -2,8 +2,9 @@ from tkinter import filedialog as fd
 import PyPDF2
 
 class Compiler:
-    def __init__(self, files):
+    def __init__(self, files, errorWindow):
         self.files = files
+        self.errorWindow = errorWindow
 
 
     def mergePdf(self):
@@ -21,9 +22,12 @@ class Compiler:
 
                 with open(saveDir, "wb") as fSave:
                     pdfMerger.write(fSave)
+            
+            self.errorWindow.open_error_window("Łączenie przebiegło pomyślnie")
+                
+            
         except:
-            print("Error save")
-
+            self.errorWindow.open_error_window("Coś poszło nie tak")
     
 
 

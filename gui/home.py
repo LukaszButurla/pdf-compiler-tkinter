@@ -2,12 +2,14 @@ import customtkinter
 from tkinter import ttk
 from gui.table import Table
 from functools import partial
+from logic.compiler import Compiler
 
 class HomePage:
-    def __init__(self, mainFrame, files, compiler, windowColor, secondColor, textColor, open_info_page, open_edit_page, open_split_page):
+    def __init__(self, mainFrame, files, windowColor, secondColor, textColor, open_info_page, open_edit_page, open_split_page, errorWindow):
+        self.compiler = Compiler(files, errorWindow)
         self.files = files
         self.table = Table()
-        self.create_widgets(mainFrame, windowColor, compiler, secondColor, textColor, open_info_page, open_edit_page, open_split_page)
+        self.create_widgets(mainFrame, windowColor, self.compiler, secondColor, textColor, open_info_page, open_edit_page, open_split_page)
         self.style_tree()
 
     def create_widgets(self, mainFrame, windowColor, compiler, secondColor, textColor, open_info_page, open_edit_page, open_split_page):
@@ -46,7 +48,7 @@ class HomePage:
         buttonEdit = customtkinter.CTkButton(master=buttonsFrame, text="Usuń", width=120, bg_color=windowColor, command=open_edit_page)
         buttonEdit.grid(row = 0, column = 1, sticky = "NSWE", padx = 15, pady = 20)
 
-        buttonCompile = customtkinter.CTkButton(master=buttonsFrame, text="Łącz", width=120, bg_color=windowColor, command=compiler)
+        buttonCompile = customtkinter.CTkButton(master=buttonsFrame, text="Łącz", width=120, bg_color=windowColor, command=self.compiler.mergePdf)
         buttonCompile.grid(row = 0, column = 2, sticky = "NSWE", padx = 15, pady = 20)
 
         buttonSplit = customtkinter.CTkButton(master=buttonsFrame, text="Dziel", width=120, bg_color=windowColor, command=open_split_page)
