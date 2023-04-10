@@ -23,9 +23,13 @@ class SplitPage:
         read = PdfReader(fileRead)
         pages = len(read.pages)
         
-        self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
-        self.create_boxes(pages)
-        self.reset_values()
+        if pages <= 1:
+            return False
+        else:       
+            self.amountOfFilesSlider.configure(to=pages, number_of_steps = pages-1)
+            self.create_boxes(pages)
+            self.reset_values()
+            return True
 
     def create_widgets(self, frame, open_home_page):
         self.splitFrame = customtkinter.CTkFrame(frame, fg_color=self.windowColor)
@@ -51,7 +55,6 @@ class SplitPage:
         amountOfPages = 4
         self.selectedFileLabel = customtkinter.CTkLabel(self.splitFrame, text = "Wybrany plik:", text_color=self.textColor, anchor="w")
         self.selectedFileLabel.grid(row = 0, column = 0, columnspan = 2, sticky = "NSWE", padx = 15, pady = 5)
-
         selectionMode = StringVar()
 
         self.oneCheck = customtkinter.CTkRadioButton(leftFrame, text = "Dziel po stronie", value="disabled", command=partial(self.disable_enable_widgets, selectionMode), variable=selectionMode, text_color=self.textColor)
